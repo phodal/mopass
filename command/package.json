@@ -1,0 +1,24 @@
+{
+  "name": "mopass",
+  "version": "0.0.1",
+  "description": "A Password Generator for Phodal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phodal/mopass.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "Password",
+    "Generator"
+  ],
+  "author": "Phodal HUANG",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phodal/mopass/issues"
+  },
+  "homepage": "https://github.com/phodal/mopass#readme"
+}
