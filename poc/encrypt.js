@@ -17,5 +17,6 @@ function encrypt(word) {
   return encrypted.ciphertext.toString().toUpperCase();
 }
 
-console.log(encrypt('phodal'));
+console.log(encrypt(`abcDEF12345!@#$%!"#$%&'()*+,-./:;<=>?@[]^_\`{|}~`));
 console.log(decrypt('CBE4BEFD00FE16653E51FE61AACA2BBE'));
+console.log(decrypt('82652AC0170BF80FF9414A3D8051D9F13C3A2A65DF1A8C06412FCA85EC96662FF51AC0E5D0421089739684811A9599F4'));
