@@ -2,6 +2,11 @@
 
 > another personal password manager tools
 
+Features:
+
+ - CLI Support
+ - Cloud Sync
+ - Self-host
 
 Todos:
 
@@ -12,6 +17,11 @@ Todos:
  - Chrome Plugin
  - Weapp
  - Command
+
+## Process
+
+1. masterpassword -> key <- CLI
+2. Auto-Sync from Cloud (strategy, server push)?
 
 
 LICENSE
