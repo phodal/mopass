@@ -76,7 +76,7 @@ functions:
             identitySource: method.request.header.Authorization
             type: token
 
-esources:
+resources:
   Resources:
     LinkDB:
       Type: "AWS::DynamoDB::Table"

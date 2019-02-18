@@ -48,13 +48,15 @@ async function postItem(event, context, callback) {
   const params = {
     TableName: tableName,
     Item: {
-      password: body.password,
+      password: body.password + '',
+      checked: false,
       id: shortid.generate(),
-      createdAt: timestamp
+      createdAt: timestamp,
+      updatedAt: timestamp
     }
   };
 
-  docClient.put(params, (error) => {
+  docClient.put(params, function (error) {
     if (error) {
       console.error(error);
       callback(null, {
