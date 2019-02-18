@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "serverless-domain-manager": "^2.6.13"
+  },
+  "dependencies": {
+    "shortid": "^2.2.14"
   }
 }
