@@ -39,23 +39,39 @@ provider:
 
 functions:
   auth:
-    handler: auth.authorize
+    handler: src/auth.authorize
   index:
     handler: src/home.handler
     events:
       - http:
           path: /
           method: get
+          authorizer:
+            name: auth
+            resultTtlInSeconds: 300
+            identitySource: method.request.header.Authorization
+            type: token
+
   verify:
     handler: src/verify.handler
     events:
       - http:
           path: /verify
           method: get
+          authorizer:
+            name: auth
+            resultTtlInSeconds: 300
+            identitySource: method.request.header.Authorization
+            type: token
+
   sync:
     handler: src/sync.handler
-    authorizer: auth
     events:
       - http:
           path: /sync
           method: get
+          authorizer:
+            name: auth
+            resultTtlInSeconds: 300
+            identitySource: method.request.header.Authorization
+            type: token
