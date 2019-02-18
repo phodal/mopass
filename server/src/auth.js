@@ -26,10 +26,10 @@ module.exports.authorize = (event, context, callback) => {
 
   switch (token) {
     case 'allow':
-      callback(null, generatePolicy('user', 'Allow', event.methodArn));
+      callback(null, generatePolicy('user', 'Allow', '*'));
       break;
     case 'deny':
-      callback(null, generatePolicy('user', 'Deny', event.methodArn));
+      callback(null, generatePolicy('user', 'Deny', '*'));
       break;
     case 'unauthorized':
       callback('Unauthorized');

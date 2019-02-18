@@ -69,7 +69,7 @@ functions:
     events:
       - http:
           path: /sync
-          method: get
+          method: ANY
           authorizer:
             name: auth
             resultTtlInSeconds: 300
