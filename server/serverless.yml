@@ -80,12 +80,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
-          - AttributeName: createdAt
-            AttributeType: N
+          - AttributeName: token
+            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-          - AttributeName: createdAt
+          - AttributeName: token
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1

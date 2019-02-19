@@ -7,12 +7,48 @@ const tableName = process.env.DYNAMODB_TABLE;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 function deleteItem(event, context, callback) {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      method: 'DELETE'
-    }),
+  let body;
+  try {
+    body = JSON.parse(event.body);
+  } catch (error) {
+    callback(null, {statusCode: 400, body: JSON.stringify(error)});
+  }
+
+  if (!body.id || !body.token) {
+    callback(null, {
+      statusCode: 400, body: JSON.stringify({
+        message: 'message lost',
+        body: JSON.stringify(body)
+      })
+    });
+  }
+
+  const params = {
+    TableName: tableName,
+    Key: {
+      id: body.id,
+      token: body.token
+    }
   };
+
+  dynamoDb.delete(params, function (error, data) {
+    if (error) {
+      return callback(null, {
+        statusCode: error.statusCode || 501,
+        headers: {'Content-Type': 'text/plain'},
+        body: JSON.stringify({
+          message: 'cannot delete item',
+          error: error
+        }),
+      });
+    }
+
+    const response = {
+      statusCode: 204,
+      body: JSON.stringify([]),
+    };
+    return callback(null, response);
+  });
 }
 
 function getItem(event, context, callback) {
@@ -98,7 +134,7 @@ function postItem(event, context, callback) {
     }
 
     const response = {
-      statusCode: 201,
+      statusCode: 200,
       body: JSON.stringify(params.Item),
     };
 
@@ -124,12 +160,11 @@ function updateItem(event, context, callback) {
     });
   }
 
-  const passwordId = body.id;
   const timestamp = new Date().getTime();
   const params = {
     TableName: tableName,
     Key: {
-      id: passwordId
+      id: body.id
     },
     ExpressionAttributeNames: {
       '#password': 'password',
@@ -154,7 +189,7 @@ function updateItem(event, context, callback) {
     }
 
     const response = {
-      statusCode: 201,
+      statusCode: 200,
       body: JSON.stringify(params.Item),
     };
     return callback(null, response);

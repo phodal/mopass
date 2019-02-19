@@ -14,3 +14,8 @@ GET:
 curl --header "Authorization: allow" https://spm.wdsm.io/sync?token=23432414
 ```
 
+DELETE:
+
+```
+curl --header "Authorization: allow" -X DELETE -H "Content-type: application/json" -d '{"id": "W0ChFtNxa", "token": "23432414"}' https://spm.wdsm.io/sync
+```
