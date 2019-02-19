@@ -2,8 +2,6 @@
 const shortid = require('shortid');
 const AWS = require('aws-sdk');
 
-AWS.config.setPromisesDependency(Promise);
-
 const tableName = process.env.DYNAMODB_TABLE;
 const docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -56,26 +54,32 @@ async function postItem(event, context, callback) {
     }
   };
 
-  docClient.put(params, function (error) {
-    if (error) {
-      console.error(error);
-      callback(null, {
-        statusCode: error.statusCode || 501,
-        headers: {'Content-Type': 'text/plain'},
-        body: 'couldn\'t create the form item.',
-      });
-      return;
-    }
+  console.log("----------", params);
+  try {
+    docClient.put(params, function (error) {
+      console.log(error);
+      if (error) {
+        console.error(error);
+        callback(null, {
+          statusCode: error.statusCode || 501,
+          headers: {'Content-Type': 'text/plain'},
+          body: 'couldn\'t create the form item.',
+        });
+        return;
+      }
 
-    const response = {
-      statusCode: 201,
-      headers: {
-        "Access-Control-Allow-Origin": "*"
-      },
-      body: JSON.stringify(params.Item),
-    };
-    callback(null, response);
-  });
+      const response = {
+        statusCode: 201,
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
+        body: JSON.stringify(params.Item),
+      };
+      callback(null, response);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function updateItem(event, context, callback) {

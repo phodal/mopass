@@ -78,7 +78,7 @@ functions:
 
 resources:
   Resources:
-    LinkDB:
+    SPMDB:
       Type: "AWS::DynamoDB::Table"
       DeletionPolicy: Retain
       Properties:
