@@ -16,12 +16,44 @@ function deleteItem(event, context, callback) {
 }
 
 function getItem(event, context, callback) {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      method: 'getItem'
-    }),
+  const token = event.queryStringParameters.token;
+  if (!token) {
+    callback(null, {
+      statusCode: 400, body: JSON.stringify({
+        message: 'token lost'
+      })
+    });
+  }
+
+  const params = {
+    TableName: tableName,
+    FilterExpression: '#passwordToken = :token',
+    ExpressionAttributeNames: {
+      '#passwordToken': 'token',
+    },
+    ExpressionAttributeValues: {
+      ':token': token
+    }
   };
+
+  dynamoDb.scan(params, function (error, data) {
+    if (error) {
+      return callback(null, {
+        statusCode: error.statusCode || 501,
+        headers: {'Content-Type': 'text/plain'},
+        body: JSON.stringify({
+          message: 'get item failure',
+          error: error
+        }),
+      });
+    }
+
+    const response = {
+      statusCode: 201,
+      body: JSON.stringify(data),
+    };
+    return callback(null, response);
+  });
 }
 
 function patchItem(event, context, callback) {
@@ -46,7 +78,7 @@ function postItem(event, context, callback) {
     callback(null, {
       statusCode: 400, body: JSON.stringify({
         message: 'message lost',
-        body: JSON.stringify(body)
+        body: body
       })
     });
   }
