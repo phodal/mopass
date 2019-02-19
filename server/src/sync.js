@@ -56,15 +56,6 @@ function getItem(event, context, callback) {
   });
 }
 
-function patchItem(event, context, callback) {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      method: 'patchItem'
-    }),
-  };
-}
-
 function postItem(event, context, callback) {
   let body;
   try {
@@ -173,7 +164,6 @@ function updateItem(event, context, callback) {
 const handlers = {
   "DELETE": deleteItem,
   "GET": getItem,
-  "PATCH": patchItem,
   "POST": postItem,
   "PUT": updateItem,
 };
