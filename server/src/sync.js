@@ -63,6 +63,7 @@ function getItem(event, context, callback) {
 
   const params = {
     TableName: tableName,
+    ProjectionExpression:"password, createdAt, updatedAt, id, title",
     FilterExpression: '#passwordToken = :token',
     ExpressionAttributeNames: {
       '#passwordToken': 'token',
@@ -115,7 +116,6 @@ function postItem(event, context, callback) {
     TableName: tableName,
     Item: {
       password: body.password + '',
-      checked: false,
       token: body.token,
       title: body.title,
       id: shortid.generate(),
