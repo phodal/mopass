@@ -42,7 +42,7 @@ function postItem(event, context, callback) {
     callback(null, {statusCode: 400, body: JSON.stringify(error)});
   }
 
-  if (!body.password || !body.id || !body.token) {
+  if (!body.password || !body.title || !body.token) {
     callback(null, {
       statusCode: 400, body: JSON.stringify({
         message: 'message lost',
@@ -58,6 +58,7 @@ function postItem(event, context, callback) {
       password: body.password + '',
       checked: false,
       token: body.token,
+      title: body.title,
       id: shortid.generate(),
       createdAt: timestamp,
       updatedAt: timestamp
@@ -91,7 +92,7 @@ function updateItem(event, context, callback) {
     callback(null, {statusCode: 400, body: JSON.stringify(error)});
   }
 
-  if (!body.password || !body.id || !body.token) {
+  if (!body.password || !body.id || !body.token || !body.title) {
     callback(null, {
       statusCode: 400, body: JSON.stringify({
         message: 'message lost',
