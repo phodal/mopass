@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/phodal/mopass#readme",
   "dependencies": {
-    "axios": "^0.18.0",
-    "sqlite3": "^4.0.6"
+    "axios": "^0.18.0"
   }
 }
