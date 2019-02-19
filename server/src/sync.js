@@ -41,7 +41,15 @@ function postItem(event, context, callback) {
     console.log(error);
     callback(null, {statusCode: 400, body: JSON.stringify(error)});
   }
-  console.log(body);
+
+  if (!body.password || !body.id || !body.token) {
+    callback(null, {
+      statusCode: 400, body: JSON.stringify({
+        message: 'message lost',
+        body: JSON.stringify(body)
+      })
+    });
+  }
 
   const timestamp = new Date().getTime();
   const params = {
@@ -49,43 +57,84 @@ function postItem(event, context, callback) {
     Item: {
       password: body.password + '',
       checked: false,
+      token: body.token,
       id: shortid.generate(),
       createdAt: timestamp,
       updatedAt: timestamp
     }
   };
 
-  try {
-    dynamoDb.put(params, function (error, data) {
-      console.log("=============");
-      if (error) {
-        console.error(error);
-        return callback(null, {
-          statusCode: error.statusCode || 501,
-          headers: {'Content-Type': 'text/plain'},
-          body: 'couldn\'t create the form item.',
-        });
-      }
+  dynamoDb.put(params, function (error, data) {
+    if (error) {
+      return callback(null, {
+        statusCode: error.statusCode || 501,
+        headers: {'Content-Type': 'text/plain'},
+        body: 'couldn\'t create the form item.',
+      });
+    }
 
-      console.log(data);
-      const response = {
-        statusCode: 201,
-        body: JSON.stringify(params.Item),
-      };
-      return callback(null, response);
-    });
-  } catch (error) {
-    console.log(error);
-  }
+    const response = {
+      statusCode: 201,
+      body: JSON.stringify(params.Item),
+    };
+
+    return callback(null, response);
+  });
 }
 
 function updateItem(event, context, callback) {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      method: 'updateItem'
-    }),
+  let body;
+  try {
+    body = JSON.parse(event.body);
+  } catch (error) {
+    console.log(error);
+    callback(null, {statusCode: 400, body: JSON.stringify(error)});
+  }
+
+  if (!body.password || !body.id || !body.token) {
+    callback(null, {
+      statusCode: 400, body: JSON.stringify({
+        message: 'message lost',
+        body: JSON.stringify(body)
+      })
+    });
+  }
+
+  const passwordId = body.id;
+  const timestamp = new Date().getTime();
+  const params = {
+    TableName: tableName,
+    Key: {
+      id: passwordId
+    },
+    ExpressionAttributeNames: {
+      '#password': 'password',
+      '#updatedAt': 'updatedAt'
+    },
+    ExpressionAttributeValues: {
+      ':password': body.password,
+      ':updatedAt': timestamp
+    },
+    ConditionExpression: '(#id = :id, #token = :token)',
+    UpdateExpression: 'SET #password = :password, #updatedAt =: updatedAt',
+    ReturnValues: 'ALL_NEW',
   };
+
+  dynamoDb.put(params, function (error, data) {
+    if (error) {
+      return callback(null, {
+        statusCode: error.statusCode || 501,
+        headers: {'Content-Type': 'text/plain'},
+        body: 'couldn\'t create the form item.',
+      });
+    }
+
+    const response = {
+      statusCode: 201,
+      body: JSON.stringify(params.Item),
+    };
+    return callback(null, response);
+  });
 }
 
 const handlers = {
