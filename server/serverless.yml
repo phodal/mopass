@@ -3,7 +3,6 @@ service: spm
 plugins:
   - serverless-domain-manager
 
-
 custom:
   stage: ${opt:stage, self:provider.stage}
   customDomain:
@@ -15,9 +14,8 @@ custom:
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs6.10
   memorySize: 256
-  timeout: 5
   environment:
     S3: ${self:service}-storage-${opt:stage, self:provider.stage}
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
@@ -46,11 +44,6 @@ functions:
       - http:
           path: /
           method: get
-          authorizer:
-            name: auth
-            resultTtlInSeconds: 300
-            identitySource: method.request.header.Authorization
-            type: token
 
   verify:
     handler: src/verify.handler
@@ -58,6 +51,7 @@ functions:
       - http:
           path: /verify
           method: get
+          cors: true
           authorizer:
             name: auth
             resultTtlInSeconds: 300
@@ -70,6 +64,7 @@ functions:
       - http:
           path: /sync
           method: ANY
+          cors: true
           authorizer:
             name: auth
             resultTtlInSeconds: 300
@@ -85,13 +80,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
-          - AttributeName: createdAt
-            AttributeType: N
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-          - AttributeName: createdAt
-            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

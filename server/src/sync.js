@@ -1,9 +1,10 @@
 'use strict';
+
 const shortid = require('shortid');
 const AWS = require('aws-sdk');
 
 const tableName = process.env.DYNAMODB_TABLE;
-const docClient = new AWS.DynamoDB.DocumentClient();
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 async function deleteItem(event, context, callback) {
   return {
@@ -54,28 +55,25 @@ async function postItem(event, context, callback) {
     }
   };
 
-  console.log("----------", params);
+  console.log("----------", params, dynamoDb.put, callback);
   try {
-    docClient.put(params, function (error) {
-      console.log(error);
+    dynamoDb.put(params, (error, data) => {
+      console.log("=============");
       if (error) {
         console.error(error);
-        callback(null, {
+        return callback(null, {
           statusCode: error.statusCode || 501,
           headers: {'Content-Type': 'text/plain'},
           body: 'couldn\'t create the form item.',
         });
-        return;
       }
 
+      console.log(data);
       const response = {
         statusCode: 201,
-        headers: {
-          "Access-Control-Allow-Origin": "*"
-        },
         body: JSON.stringify(params.Item),
       };
-      callback(null, response);
+      return callback(null, response);
     });
   } catch (error) {
     console.log(error);
