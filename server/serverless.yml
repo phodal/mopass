@@ -14,7 +14,7 @@ custom:
 
 provider:
   name: aws
-  runtime: nodejs6.10
+  runtime: nodejs8.10
   memorySize: 256
   environment:
     S3: ${self:service}-storage-${opt:stage, self:provider.stage}
