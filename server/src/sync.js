@@ -85,7 +85,7 @@ function getItem(event, context, callback) {
     }
 
     const response = {
-      statusCode: 201,
+      statusCode: 200,
       body: JSON.stringify(data),
     };
     return callback(null, response);
