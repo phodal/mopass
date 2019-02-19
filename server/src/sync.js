@@ -6,7 +6,7 @@ const AWS = require('aws-sdk');
 const tableName = process.env.DYNAMODB_TABLE;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-async function deleteItem(event, context, callback) {
+function deleteItem(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify({
@@ -15,7 +15,7 @@ async function deleteItem(event, context, callback) {
   };
 }
 
-async function getItem(event, context, callback) {
+function getItem(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify({
@@ -24,7 +24,7 @@ async function getItem(event, context, callback) {
   };
 }
 
-async function patchItem(event, context, callback) {
+function patchItem(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify({
@@ -33,7 +33,7 @@ async function patchItem(event, context, callback) {
   };
 }
 
-async function postItem(event, context, callback) {
+function postItem(event, context, callback) {
   let body;
   try {
     body = JSON.parse(event.body);
@@ -55,9 +55,8 @@ async function postItem(event, context, callback) {
     }
   };
 
-  console.log("----------", params, dynamoDb.put, callback);
   try {
-    dynamoDb.put(params, (error, data) => {
+    dynamoDb.put(params, function (error, data) {
       console.log("=============");
       if (error) {
         console.error(error);
@@ -80,7 +79,7 @@ async function postItem(event, context, callback) {
   }
 }
 
-async function updateItem(event, context, callback) {
+function updateItem(event, context, callback) {
   return {
     statusCode: 200,
     body: JSON.stringify({
@@ -97,7 +96,7 @@ const handlers = {
   "PUT": updateItem,
 };
 
-module.exports.handler = async (event, context, callback) => {
+module.exports.handler = function (event, context, callback) {
   let httpMethod = event["httpMethod"];
   console.log(httpMethod);
   if (httpMethod in handlers) {
