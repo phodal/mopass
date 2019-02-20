@@ -1,7 +1,9 @@
 const axios = require('axios');
 const dbm = require('./dbm');
+const TokenManager = require('./token-manager');
+
 axios.defaults.baseURL = 'https://spm.wdsm.io';
-axios.defaults.headers.common['Authorization'] = 'allow';
+axios.defaults.headers.common['Authorization'] = TokenManager.getAuthToken();
 
 function fetchPasswords(token) {
   axios.get('https://spm.wdsm.io/sync?token=' + token)
