@@ -19,5 +19,12 @@ function uuidv4() {
   )
 }
 
-console.log(timeStamp + upperCase + lowerCase + makeSpecialString(3));
-console.log(uuidv4());
+function generatePassword(params) {
+  if (params === 'normal') {
+    return timeStamp + upperCase + lowerCase + makeSpecialString(3);
+  }
+}
+
+module.exports = {
+  password: generatePassword
+};
