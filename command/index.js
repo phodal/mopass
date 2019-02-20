@@ -4,6 +4,7 @@
 const creator = require('./src/create');
 const fetch = require('./src/fetch');
 const dbm = require('./src/dbm');
+const Utils = require('./src/utils');
 const argv = require('yargs')
   .usage('Usage: $0 [commmand]')
   .argv;
@@ -24,7 +25,11 @@ if (argv.create) {
 if (argv.get) {
   const results = dbm.get(argv.get);
   if (results) {
-    console.log(results.password);
+    Utils.pbcopy(results.password).then(function () {
+      console.log(`Copied to clipboard!`);
+    }).catch(function (e) {
+      console.error(new Error(`Could Not Copy To Clipboard!`));
+    })
   } else {
     console.log({});
   }
