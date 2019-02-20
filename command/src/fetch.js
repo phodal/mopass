@@ -1,8 +1,4 @@
 const axios = require('axios');
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync(__dirname + '/db.json');
-const db = low(adapter);
 
 axios.defaults.baseURL = 'https://spm.wdsm.io';
 axios.defaults.headers.common['Authorization'] = 'allow';
@@ -11,7 +7,6 @@ function getPasswords(token) {
   axios.get('https://spm.wdsm.io/sync?token=' + token)
     .then(function (response) {
       console.log(response.data);
-      db.defaults(response.data).write();
     })
     .catch(function (error) {
       if (error.response) {

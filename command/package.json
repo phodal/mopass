@@ -4,6 +4,7 @@
   "description": "A Password Generator for Phodal",
   "main": "index.js",
   "scripts": {
+    "cli": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
