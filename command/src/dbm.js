@@ -13,8 +13,17 @@ function get(title) {
     .write();
 }
 
+function checkTitleDuplicate(title) {
+  if (get(title)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 const dbm = {
   write: write,
-  get: get
+  get: get,
+  checkTitleDuplicate: checkTitleDuplicate
 };
 module.exports = dbm;

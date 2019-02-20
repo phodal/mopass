@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const dbm = require('./dbm');
 axios.defaults.baseURL = 'https://spm.wdsm.io';
 axios.defaults.headers.common['Authorization'] = 'allow';
 
