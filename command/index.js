@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+
+const fetch = require('./src/fetch');
 const dbm = require('./src/dbm');
 const argv = require('yargs')
   .usage('Usage: $0 [commmand]')
@@ -10,8 +12,8 @@ if (argv.generate) {
   console.log(generator.password('normal'));
 }
 
-if (argv.sync) {
-  console.log(generator.password('normal'));
+if (argv.fetch) {
+  fetch.passwords();
 }
 
 if (argv.get) {

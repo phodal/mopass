@@ -3,16 +3,14 @@ const axios = require('axios');
 axios.defaults.baseURL = 'https://spm.wdsm.io';
 axios.defaults.headers.common['Authorization'] = 'allow';
 
-function getPasswords(token) {
+function fetchPasswords(token) {
   axios.get('https://spm.wdsm.io/sync?token=' + token)
     .then(function (response) {
-      console.log(response.data);
+      dbm.write(response.data);
     })
     .catch(function (error) {
       if (error.response) {
-        console.log(error.response.data);
         console.log(error.response.status);
-        console.log(error.response.headers);
       } else if (error.request) {
         console.log(error.request);
       } else {
@@ -22,5 +20,4 @@ function getPasswords(token) {
     });
 }
 
-
-getPasswords('23432414');
+module.exports.passwords = fetchPasswords;
