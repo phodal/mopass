@@ -23,6 +23,8 @@
   "homepage": "https://github.com/phodal/mopass#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "lowdb": "^1.0.0"
+    "inquirer": "^6.2.2",
+    "lowdb": "^1.0.0",
+    "yargs": "^13.2.1"
   }
 }
