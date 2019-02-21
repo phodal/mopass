@@ -4,7 +4,12 @@ const adapter = new FileSync(__dirname + '/db.json');
 const db = low(adapter);
 
 function write(data) {
-  db.defaults(data).write();
+  db.set('Items', data.Items)
+    .write();
+  db.get('Count', data.Count)
+    .write();
+  db.get('ScannedCount', data.ScannedCount)
+    .write();
 }
 
 function get(title) {

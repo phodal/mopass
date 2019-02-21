@@ -15,7 +15,7 @@ if (argv.generate) {
 }
 
 if (argv.fetch) {
-  fetch.passwords();
+  fetch.passwords(argv.fetch);
 }
 
 if (argv.create) {
