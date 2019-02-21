@@ -29,6 +29,7 @@ if (argv.fetch) {
 if (argv.create) {
   syncManager.askMasterPassword(function () {
     creator.creator();
+    fetch.fetchPasswords();
   });
 }
 
