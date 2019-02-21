@@ -1,6 +1,13 @@
 # Serverless Password Manager
 
-Test CLI:
+## Setup
+
+1. Setup AWS Accounts && Serverless Framework
+2. Setup: `yarn install`
+3. Config: change domain & DB in `serverless.yml`
+4. Deploy: `sls deploy`
+
+## Test
 
 POST:
 
