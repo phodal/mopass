@@ -26,11 +26,11 @@ if (argv.get) {
   const results = dbm.get(argv.get);
   if (results) {
     Utils.pbcopy(results.password).then(function () {
-      console.log(`Copied to clipboard!`);
+      console.log(`200: Copied to clipboard!`);
     }).catch(function (e) {
-      console.error(new Error(`Could Not Copy To Clipboard!`));
+      console.error(new Error(`500: Could Not Copy To Clipboard!`));
     })
   } else {
-    console.log({});
+    console.log('404: not password');
   }
 }
