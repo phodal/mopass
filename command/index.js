@@ -2,7 +2,6 @@
 
 const creator = require('./src/create');
 const fetch = require('./src/fetch');
-const dbm = require('./src/dbm');
 const syncManager = require('./src/syc-manager');
 const Utils = require('./src/utils');
 const argv = require('yargs')
@@ -20,7 +19,7 @@ if (argv.generate) {
 }
 
 if (argv.fetch) {
-  fetch.passwords();
+  fetch.fetchPasswords();
 }
 
 if (argv.create) {

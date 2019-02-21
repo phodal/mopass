@@ -48,6 +48,6 @@ function create(pwdInfo) {
     });
 }
 
-module.exports.passwords = fetchPasswords;
+module.exports.fetchPasswords = fetchPasswords;
 module.exports.create = create;
 module.exports.fetchPasswordsPromise = fetchPasswordsPromise;
