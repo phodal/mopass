@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-
 const creator = require('./src/create');
 const fetch = require('./src/fetch');
 const syncManager = require('./src/syc-manager');
+const encryptUtils = require('./src/encrypt-utils');
 const Utils = require('./src/utils');
 const argv = require('yargs')
   .usage('Usage: $0 [commmand]')
@@ -28,6 +28,10 @@ if (argv.create) {
   syncManager.askMasterPassword(function () {
     creator.creator();
   });
+}
+
+if (argv.createKey) {
+  encryptUtils.createKey();
 }
 
 if (argv.get) {

@@ -1,4 +1,5 @@
-// http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+const uuid = require('uuid');
+
 var upperCase = Math.random().toString(36).substring(2, 6).toUpperCase();
 var lowerCase = Math.random().toString(36).substring(2, 6);
 var timeStamp = ('' + new Date().getTime()).substr(11, 3);
@@ -13,10 +14,8 @@ function makeSpecialString(strLength) {
   return text;
 }
 
-function uuidv4() {
-  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-  )
+function createKey() {
+  return uuid.v4();
 }
 
 function generatePassword(params) {
@@ -26,5 +25,6 @@ function generatePassword(params) {
 }
 
 module.exports = {
-  password: generatePassword
+  password: generatePassword,
+  createKey: createKey
 };
