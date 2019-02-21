@@ -1,9 +1,6 @@
 #!/usr/bin/env node
-const creator = require('./src/create');
-const fetch = require('./src/fetch');
-const syncManager = require('./src/syc-manager');
-const encryptUtils = require('./src/encrypt-utils');
-const Utils = require('./src/utils');
+
+const chalk = require('chalk');
 const argv = require('yargs')
   .usage('Usage: $0 [commmand]')
   .command('create', 'create a password in local and server')
@@ -13,6 +10,11 @@ const argv = require('yargs')
   .argv;
 
 const generator = require('./src/generator');
+const creator = require('./src/create');
+const fetch = require('./src/fetch');
+const syncManager = require('./src/syc-manager');
+const encryptUtils = require('./src/encrypt-utils');
+const Utils = require('./src/utils');
 
 if (argv.generate) {
   console.log(generator.password('normal'));
@@ -35,7 +37,14 @@ if (argv.createKey) {
 }
 
 if (argv.list) {
-  syncManager.listAllTitle();
+  const titles = syncManager.listAllTitle();
+  if (titles.length < 0) {
+    return;
+  }
+
+  for (let i = 0; i < titles.length; i++) {
+    console.log(chalk.red(i + 1) + '. ' + chalk.underline.bgBlue(titles[i]));
+  }
 }
 
 if (argv.get) {

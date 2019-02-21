@@ -45,8 +45,7 @@ function askMasterPassword(callback) {
 }
 
 function listAllTitle() {
-  const titles = dbm.getAllTitle();
-  console.log(titles);
+  return dbm.getAllTitle();
 }
 
 module.exports.getPasswordByTitle = getPasswordByTitle;
