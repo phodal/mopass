@@ -5,8 +5,8 @@ const TokenManager = require('./token-manager');
 axios.defaults.baseURL = 'https://spm.wdsm.io';
 axios.defaults.headers.common['Authorization'] = TokenManager.getAuthToken();
 
-function fetchPasswords(token) {
-  axios.get('https://spm.wdsm.io/sync?token=' + token)
+function fetchPasswords() {
+  fetchPasswordsPromise()
     .then(function (response) {
       dbm.write(response.data);
     })
@@ -20,6 +20,10 @@ function fetchPasswords(token) {
       }
       console.log(error.config);
     });
+}
+
+function fetchPasswordsPromise() {
+  return axios.get('https://spm.wdsm.io/sync?token=' + TokenManager.getUserToken());
 }
 
 function create(pwdInfo) {
@@ -46,3 +50,4 @@ function create(pwdInfo) {
 
 module.exports.passwords = fetchPasswords;
 module.exports.create = create;
+module.exports.fetchPasswordsPromise = fetchPasswordsPromise;

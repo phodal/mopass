@@ -1,3 +1,7 @@
+function createToken() {
+
+}
+
 function getUserToken() {
   return "fkdajslfalfj";
 }
@@ -16,3 +20,4 @@ function setUserToken() {
 
 module.exports.getUserToken = getUserToken;
 module.exports.getAuthToken = getAuthToken;
+module.exports.createToken = createToken;
