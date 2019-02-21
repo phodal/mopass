@@ -12,11 +12,12 @@ Commands:
  - Generate New Password: ``mopass --generate``
  - Fetch Passwords from Server: ``mopass fetch``
  - Get Password By Title: ``mopass --get [title]``
+ - List All Titles: ``mopass --list``
 
 ## Features
 
  - [x] Sync Remote Passwords
- - [] List All Passwords Alias/Title
+ - [x] List All Passwords Alias/Title
  - [x] Get Password by Alias/Title
  - [x] Delete One Password
  - [] QRCode Generator for Password

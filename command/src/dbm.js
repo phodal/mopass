@@ -24,6 +24,16 @@ function create(pwdInfo) {
     .write();
 }
 
+function getAllTitle() {
+  const data = db.get('Items').write();
+  const titles = [];
+  for (let i = 0; i < data.length;i++){
+    titles.push(data[i].title)
+  }
+
+  return titles;
+}
+
 function checkTitleDuplicate(title) {
   if (get(title)) {
     return false;
@@ -35,6 +45,7 @@ function checkTitleDuplicate(title) {
 const dbm = {
   write: write,
   get: get,
+  getAllTitle: getAllTitle,
   create: create,
   checkTitleDuplicate: checkTitleDuplicate
 };

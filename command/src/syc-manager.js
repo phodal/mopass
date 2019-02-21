@@ -44,5 +44,11 @@ function askMasterPassword(callback) {
     });
 }
 
+function listAllTitle() {
+  const titles = dbm.getAllTitle();
+  console.log(titles);
+}
+
 module.exports.getPasswordByTitle = getPasswordByTitle;
 module.exports.askMasterPassword = askMasterPassword;
+module.exports.listAllTitle = listAllTitle;

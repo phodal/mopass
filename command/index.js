@@ -34,6 +34,10 @@ if (argv.createKey) {
   encryptUtils.createKey();
 }
 
+if (argv.list) {
+  syncManager.listAllTitle();
+}
+
 if (argv.get) {
   syncManager.askMasterPassword(function () {
     const password = syncManager.getPasswordByTitle(argv.get);
