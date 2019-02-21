@@ -27,4 +27,4 @@ Todos:
 LICENSE
 ---
 
-GPL
+@ 2019 A [Phodal Huang](https://www.phodal.com)'s [Idea](http://github.com/phodal/ideas).  This code is distributed under the GPL license. See `LICENSE` in this directory.
