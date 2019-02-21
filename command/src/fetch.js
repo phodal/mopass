@@ -22,4 +22,27 @@ function fetchPasswords(token) {
     });
 }
 
+function create(pwdInfo) {
+  console.log('create to server....');
+  axios.post('https://spm.wdsm.io/sync', {
+    title: pwdInfo.title,
+    password: pwdInfo.password,
+    token: TokenManager.getUserToken()
+  })
+    .then(function (response) {
+      dbm.create(response.data);
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.status);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    });
+}
+
 module.exports.passwords = fetchPasswords;
+module.exports.create = create;

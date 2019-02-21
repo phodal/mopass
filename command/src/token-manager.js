@@ -1,5 +1,5 @@
 function getUserToken() {
-
+  return "fkdajslfalfj";
 }
 
 function getAuthToken() {

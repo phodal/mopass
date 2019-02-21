@@ -6,6 +6,7 @@ const { from } = require('rxjs');
 
 const dbm = require('./dbm');
 const encryptUtils = require('./encrypt-utils');
+const fetch = require('./fetch');
 
 function validatePassword(data) {
   // return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(data);
@@ -44,7 +45,7 @@ function creator() {
       console.log('Error: ', err);
     },
     function() {
-      dbm.create(pwdInfo);
+      fetch.create(pwdInfo);
     });
 }
 
