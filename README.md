@@ -1,28 +1,51 @@
 # Serverless Password Manager for Phodal
 
-> another personal password manager tools
+> a serverless personal password manager tools
 
-Features:
+Roadmap:
 
- - CLI Support
- - Cloud Sync
- - Self-host
+ - [ ] Two-factor Authentication
+ - [ ] New Devices Verify
+ - [ ] Device UUID
+ - [x] Serverless
+ - [x] Client: CLI
+ - [ ] Client: Chrome Plugin
+ - [ ] Client: WeChat-app
 
-Todos:
+## CLI 
 
- - Two-factor Authentication
- - New Devices Verify
- - Serverless Backend for Sync
- - Device UUID
- - Chrome Plugin
- - Weapp
- - Command
+Code in [./command](./command)
 
-## Process
+### Usage
 
-1. masterpassword -> key <- CLI
-2. Auto-Sync from Cloud (strategy, server push)?
+```
+npm install -g mopass
+```
 
+Commands:
+
+ - Create Encrypt Key: ``mopass --createKey``
+ - Generate New Password: ``mopass --generate``
+ - Fetch Passwords from Server: ``mopass fetch``
+ - Get Password By Title: ``mopass --get [title]``
+ - List All Titles: ``mopass --list``
+
+### Features
+
+ - [x] Sync Remote Passwords
+ - [x] List All Passwords Alias/Title
+ - [x] Get Password by Alias/Title
+ - [x] Delete One Password
+ - [] QRCode Generator for Password
+
+## Serverless Server
+
+### Setup
+
+1. Setup AWS Accounts && Serverless Framework
+2. Setup: `yarn install`
+3. Config: change domain & DB in `serverless.yml`
+4. Deploy: `sls deploy`
 
 LICENSE
 ---
