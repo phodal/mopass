@@ -1,6 +1,5 @@
 // Do you want to sync to Server ?
 
-
 const inquirer = require('inquirer');
 const { from } = require('rxjs');
 

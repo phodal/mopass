@@ -19,22 +19,28 @@ if (argv.generate) {
 }
 
 if (argv.fetch) {
-  fetch.fetchPasswords();
+  syncManager.askMasterPassword(function () {
+    fetch.fetchPasswords();
+  })
 }
 
 if (argv.create) {
-  creator.creator();
+  syncManager.askMasterPassword(function () {
+    creator.creator();
+  });
 }
 
 if (argv.get) {
-  const password = syncManager.getPasswordByTitle(argv.get);
-  if (password) {
-    Utils.pbcopy(password).then(function () {
-      console.log(`200: Copied to clipboard!`);
-    }).catch(function (e) {
-      console.error(new Error(`500: Could Not Copy To Clipboard!`));
-    })
-  } else {
-    console.log('404: not password');
-  }
+  syncManager.askMasterPassword(function () {
+    const password = syncManager.getPasswordByTitle(argv.get);
+    if (password) {
+      Utils.pbcopy(password).then(function () {
+        console.log(`200: Copied to clipboard!`);
+      }).catch(function (e) {
+        console.error(new Error(`500: Could Not Copy To Clipboard!`));
+      })
+    } else {
+      console.log('404: not password');
+    }
+  });
 }

@@ -1,6 +1,9 @@
+const inquirer = require('inquirer');
+
 const dbm = require('./dbm');
 const fetch = require('./fetch');
 const encryptUtils = require('./encrypt-utils');
+const tokenManager = require('./token-manager');
 
 function getPasswordByTitle(title) {
   const result = dbm.get(title);
@@ -22,4 +25,24 @@ function getPasswordByTitle(title) {
   }
 }
 
+function askMasterPassword(callback) {
+  inquirer.prompt(
+    [{
+      type: 'password',
+      name: 'masterPassword',
+      mask: true,
+      message: 'master password',
+    }
+    ])
+    .then(answers => {
+      encryptUtils.configKey({
+        iv: answers.masterPassword
+      });
+      let token = encryptUtils.encrypt(answers.masterPassword);
+      tokenManager.setUserToken(token);
+      callback();
+    });
+}
+
 module.exports.getPasswordByTitle = getPasswordByTitle;
+module.exports.askMasterPassword = askMasterPassword;

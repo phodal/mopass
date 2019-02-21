@@ -1,9 +1,11 @@
+let token;
+
 function createToken() {
 
 }
 
 function getUserToken() {
-  return "fkdajslfalfj";
+  return token;
 }
 
 function getAuthToken() {
@@ -14,10 +16,11 @@ function setAuthToken() {
 
 }
 
-function setUserToken() {
-
+function setUserToken(t) {
+  token = t;
 }
 
 module.exports.getUserToken = getUserToken;
+module.exports.setUserToken = setUserToken;
 module.exports.getAuthToken = getAuthToken;
 module.exports.createToken = createToken;
