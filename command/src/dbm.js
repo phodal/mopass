@@ -18,6 +18,12 @@ function get(title) {
     .write();
 }
 
+function create(pwdInfo) {
+  return db.get('Items')
+    .push(pwdInfo)
+    .write();
+}
+
 function checkTitleDuplicate(title) {
   if (get(title)) {
     return false;
@@ -29,6 +35,7 @@ function checkTitleDuplicate(title) {
 const dbm = {
   write: write,
   get: get,
+  create: create,
   checkTitleDuplicate: checkTitleDuplicate
 };
 module.exports = dbm;

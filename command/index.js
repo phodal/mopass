@@ -18,6 +18,10 @@ if (argv.fetch) {
   fetch.passwords(argv.fetch);
 }
 
+if (argv.sync) {
+  fetch.sync(argv.sync);
+}
+
 if (argv.create) {
   creator.creator();
 }
