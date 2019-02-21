@@ -1,4 +1,4 @@
-# Serverless Password Manager for Phodal
+# Serverless Password Manager
 
 > a serverless personal password manager tools
 
