@@ -7,7 +7,12 @@ const dbm = require('./src/dbm');
 const Utils = require('./src/utils');
 const argv = require('yargs')
   .usage('Usage: $0 [commmand]')
+  .command('create', 'create a password in local and server')
+  .command('fetch', 'fetch all password from server')
+  .command('get', 'get password by title')
+  .command('generate', 'generate a new password')
   .argv;
+
 const generator = require('./src/generator');
 
 if (argv.generate) {
@@ -16,10 +21,6 @@ if (argv.generate) {
 
 if (argv.fetch) {
   fetch.passwords(argv.fetch);
-}
-
-if (argv.sync) {
-  fetch.sync(argv.sync);
 }
 
 if (argv.create) {
