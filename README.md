@@ -4,13 +4,11 @@
 
 Roadmap:
 
- - [ ] Two-factor Authentication
- - [ ] New Devices Verify
- - [ ] Device UUID
  - [x] Serverless
  - [x] Client: CLI
  - [ ] Client: Chrome Plugin
  - [ ] Client: WeChat-app
+ - [ ] Security: New Devices
 
 ## CLI 
 
@@ -36,7 +34,7 @@ Commands:
  - [x] List All Passwords Alias/Title
  - [x] Get Password by Alias/Title
  - [x] Delete One Password
- - [] QRCode Generator for Password
+ - [ ] QRCode Generator for Password
 
 ## Serverless Server
 
