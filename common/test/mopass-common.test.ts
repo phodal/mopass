@@ -1,4 +1,4 @@
-import DummyClass from "../src/mopass-common"
+import DummyClass from "../src/generator"
 
 /**
  * Dummy test
