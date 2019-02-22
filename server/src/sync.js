@@ -133,6 +133,7 @@ function postItem(event, context, callback) {
       });
     }
 
+    delete params.Item.token;
     const response = {
       statusCode: 200,
       body: JSON.stringify(params.Item),
