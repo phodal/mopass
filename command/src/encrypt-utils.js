@@ -52,7 +52,12 @@ function createKey() {
   return fs.writeFileSync(__dirname + '/.mopass.key', generator.createKey());
 }
 
+function configKey(key) {
+  return fs.writeFileSync(__dirname + '/.mopass.key', key);
+}
+
 module.exports.decrypt = decrypt;
 module.exports.encrypt = encrypt;
 module.exports.configIv = configIv;
 module.exports.createKey = createKey;
+module.exports.configKey = configKey;

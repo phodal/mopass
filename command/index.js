@@ -37,6 +37,10 @@ if (argv.createKey) {
   encryptUtils.createKey();
 }
 
+if (argv.configKey) {
+  encryptUtils.configKey();
+}
+
 if (argv.list) {
   const titles = syncManager.listAllTitle();
   if (titles.length < 0) {
