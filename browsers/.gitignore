@@ -1,7 +1,4 @@
-node_modules
-temp
-.tmp
-dist
-.sass-cache
-.DS_Store
-build
+npm-debug.log
+node_modules/
+dist/js
+tmp/
