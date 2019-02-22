@@ -13,6 +13,8 @@ const generator = require('./src/generator');
 const creator = require('./src/create');
 const fetch = require('./src/fetch');
 const syncManager = require('./src/syc-manager');
+const tokenManager = require('./src/token-manager');
+const dbm = require('./src/dbm');
 const encryptUtils = require('./src/encrypt-utils');
 const Utils = require('./src/utils');
 
@@ -66,3 +68,12 @@ if (argv.get) {
     }
   });
 }
+
+module.exports.fetch = fetch;
+module.exports.syncManager = syncManager;
+module.exports.tokenManager = tokenManager;
+module.exports.encryptUtils = encryptUtils;
+module.exports.creator = creator;
+module.exports.generator = generator;
+module.exports.Utils = Utils;
+module.exports.dbm = dbm;

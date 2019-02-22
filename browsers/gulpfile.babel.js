@@ -104,7 +104,7 @@ gulp.task('dist', (cb) => {
 
 gulp.task('zip', () => {
   return pipe(`./build/${target}/**/*`, $.zip(`${target}.zip`), './dist')
-})
+});
 
 
 // Helpers
@@ -132,14 +132,14 @@ function buildJS(target) {
     'options.js',
     'popup.js',
     'livereload.js'
-  ]
+  ];
 
   let tasks = files.map( file => {
     return browserify({
       entries: 'src/scripts/' + file,
       debug: true
     })
-    .transform('babelify', { presets: ['es2015'] })
+    .transform('babelify', { presets: ['es2015', 'stage-2'] })
     .transform(preprocessify, {
       includeExtensions: ['.js'],
       context: context

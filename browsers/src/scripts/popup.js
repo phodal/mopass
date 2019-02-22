@@ -1,5 +1,11 @@
 import ext from "./utils/ext";
 import storage from "./utils/storage";
+// import {fetch, syncManager} from "../../../command"
+//
+// fetch.fetchPasswords();
+// syncManager.configMasterPassword('phodal', function (cb) {
+//
+// });
 
 var popup = document.getElementById("app");
 storage.get('color', function(resp) {

@@ -44,10 +44,20 @@ function askMasterPassword(callback) {
     });
 }
 
+function configMasterPassword(masterPassword, callback) {
+  encryptUtils.configIv({
+    iv: masterPassword
+  });
+  let token = encryptUtils.encrypt(masterPassword);
+  tokenManager.setUserToken(token);
+  callback();
+}
+
 function listAllTitle() {
   return dbm.getAllTitle();
 }
 
 module.exports.getPasswordByTitle = getPasswordByTitle;
 module.exports.askMasterPassword = askMasterPassword;
+module.exports.configMasterPassword = configMasterPassword;
 module.exports.listAllTitle = listAllTitle;
