@@ -1,5 +1,5 @@
-const axios = require('axios');
-const TokenManager = require('./token-manager');
+import axios from 'axios'
+import TokenManager from './token-manager'
 
 axios.defaults.baseURL = 'https://spm.wdsm.io';
 axios.defaults.headers.common['Authorization'] = TokenManager.getAuthToken();
@@ -16,7 +16,8 @@ function createPasswordPromise(pwdInfo: PasswordInfo) {
   });
 }
 
-export default {
+let Fetcher = {
   fetchPasswordsPromise: fetchPasswordsPromise,
   createPasswordPromise: createPasswordPromise
 }
+export default Fetcher

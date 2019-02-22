@@ -1,5 +1,10 @@
+import Mopass from 'mopass-common';
+
 function polling() {
-  console.log('polling');
+  Mopass.Fetch.fetchPasswordsPromise().then((data) => {
+    console.log(data);
+  });
+
   setTimeout(polling, 1000 * 30);
 }
 

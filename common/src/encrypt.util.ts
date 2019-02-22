@@ -37,10 +37,6 @@ function configIv(config: any) {
   iv = CryptoJS.enc.Utf8.parse(config.iv);
 }
 
-module.exports.decrypt = decrypt;
-module.exports.encrypt = encrypt;
-module.exports.configIv = configIv;
-
 export default {
   decrypt,
   encrypt,

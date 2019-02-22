@@ -24,7 +24,9 @@ function generatePassword(params: string) {
   }
 }
 
-export default {
+let Generator = {
   password: generatePassword,
   createKey: createKey
-};
+}
+
+export default Generator;

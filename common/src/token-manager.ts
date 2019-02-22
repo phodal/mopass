@@ -20,10 +20,12 @@ function setUserToken(t: string) {
   token = t;
 }
 
-export default {
+let TokenManager = {
   getUserToken: getUserToken,
   setUserToken: setUserToken,
   getAuthToken: getAuthToken,
   setAuthToken: setAuthToken,
   createToken: createToken
 }
+
+export default TokenManager
