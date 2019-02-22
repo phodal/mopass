@@ -35,21 +35,16 @@ function askMasterPassword(callback) {
     }
     ])
     .then(answers => {
-      encryptUtils.configIv({
-        iv: answers.masterPassword
-      });
-      let token = encryptUtils.encrypt(answers.masterPassword);
-      tokenManager.setUserToken(token);
-      callback();
+      configMasterPassword(answers.masterPassword, callback);
     });
 }
 
 function configMasterPassword(masterPassword, callback) {
+  let hashPassword = encryptUtils.hashString(masterPassword);
   encryptUtils.configIv({
-    iv: masterPassword
+    iv: hashPassword
   });
-  let token = encryptUtils.encrypt(masterPassword);
-  tokenManager.setUserToken(token);
+  tokenManager.setUserToken(hashPassword);
   callback();
 }
 

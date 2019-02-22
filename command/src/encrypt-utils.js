@@ -40,6 +40,10 @@ function configIv(config) {
   iv = CryptoJS.enc.Utf8.parse(config.iv);
 }
 
+function hashString(str) {
+  return CryptoJS.MD5(str).toString();
+}
+
 function readKey() {
   try {
     return fs.readFileSync(__dirname + '/.mopass.key').toString();
@@ -61,3 +65,4 @@ module.exports.encrypt = encrypt;
 module.exports.configIv = configIv;
 module.exports.createKey = createKey;
 module.exports.configKey = configKey;
+module.exports.hashString = hashString;
