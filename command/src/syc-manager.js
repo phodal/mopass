@@ -35,7 +35,7 @@ function askMasterPassword(callback) {
     }
     ])
     .then(answers => {
-      encryptUtils.configKey({
+      encryptUtils.configIv({
         iv: answers.masterPassword
       });
       let token = encryptUtils.encrypt(answers.masterPassword);

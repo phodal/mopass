@@ -36,7 +36,7 @@ function encrypt(word) {
   return encrypted.ciphertext.toString().toUpperCase();
 }
 
-function configKey(config) {
+function configIv(config) {
   iv = CryptoJS.enc.Utf8.parse(config.iv);
 }
 
@@ -54,5 +54,5 @@ function createKey() {
 
 module.exports.decrypt = decrypt;
 module.exports.encrypt = encrypt;
-module.exports.configKey = configKey;
+module.exports.configIv = configIv;
 module.exports.createKey = createKey;
