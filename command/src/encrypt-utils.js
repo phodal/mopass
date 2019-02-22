@@ -42,7 +42,7 @@ function configIv(config) {
 
 function readKey() {
   try {
-    return fs.readFileSync(__dirname + '/.mopass.key');
+    return fs.readFileSync(__dirname + '/.mopass.key').toString();
   } catch {
     console.log('not key');
   }
