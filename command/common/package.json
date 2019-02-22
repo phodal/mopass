@@ -1,0 +1,31 @@
+{
+  "name": "mopass-common",
+  "version": "0.0.3",
+  "description": "The MoPass Common Part",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phodal/mopass.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "Password",
+    "Generator"
+  ],
+  "author": "Phodal HUANG",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phodal/mopass/issues"
+  },
+  "homepage": "https://github.com/phodal/mopass#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "crypto-js": "^3.1.9-1",
+    "lowdb": "^1.0.0",
+    "rxjs": "^6.4.0",
+    "uuid": "^3.3.2"
+  }
+}
