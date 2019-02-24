@@ -55,11 +55,6 @@ function configKey(key) {
   return fs.writeFileSync(__dirname + '/.mopass.key', key)
 }
 
-configIv({ iv: 'ABCDEF1234123412' })
-console.log(iv);
-console.log(encrypt('zero'))
-console.log(decrypt(encrypt('zero')))
-
 module.exports.decrypt = decrypt
 module.exports.encrypt = encrypt
 module.exports.configIv = configIv
