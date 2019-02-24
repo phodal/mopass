@@ -8,7 +8,7 @@ const tokenManager = require('./token-manager')
 function getPasswordByTitle(title, callback) {
   const result = dbm.get(title)
   if (result) {
-    return encryptUtils.decrypt(result.password)
+    callback(encryptUtils.decrypt(result.password));
   } else {
     fetch.fetchPasswordsPromise().then((response) => {
       if (!response.data) {
@@ -50,7 +50,7 @@ function askMasterPassword(callback) {
 function configMasterPassword(masterPassword, callback) {
   let hashPassword = encryptUtils.hashString(masterPassword)
   encryptUtils.configIv({
-    iv: hashPassword
+    iv: masterPassword
   })
   tokenManager.setUserToken(hashPassword)
   callback()
