@@ -1,68 +1,68 @@
-const CryptoJS = require('crypto-js');
-const fs = require("fs");
+const CryptoJS = require('crypto-js')
+const fs = require('fs')
 
-const generator = require('./generator');
+const generator = require('./generator')
 
-let iv;
+let iv
+
+let key = CryptoJS.enc.Utf8.parse(fs.readFileSync(__dirname + '/.mopass.key').toString())
+console.log(fs.readFileSync(__dirname + '/.mopass.key').toString())
 
 function isExistKeyAndIv(key, iv) {
   if (!key || !iv) {
-    console.log('not key or iv');
-    return false;
+    console.log('not key or iv')
+    return false
   }
 
-  return true;
+  return true
 }
 
 function decrypt(word) {
-  if (!isExistKeyAndIv(readKey(), iv)) {
-    return;
+  if (!isExistKeyAndIv(key, iv)) {
+    return
   }
 
-  let encryptedHexStr = CryptoJS.enc.Hex.parse(word);
-  let srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
-  let decrypt = CryptoJS.AES.decrypt(srcs, readKey(), {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7});
-  let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
-  return decryptedStr.toString();
+  let encryptedHexStr = CryptoJS.enc.Hex.parse(word)
+  let srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr)
+  let decrypt = CryptoJS.AES.decrypt(srcs, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 })
+  let decryptedStr = decrypt.toString(CryptoJS.enc.Utf8)
+  return decryptedStr.toString()
 }
 
 function encrypt(word) {
-  if (!isExistKeyAndIv(readKey(), iv)) {
-    return;
+  if (!isExistKeyAndIv(key, iv)) {
+    return
   }
 
   let srcs = CryptoJS.enc.Utf8.parse(word);
-  let encrypted = CryptoJS.AES.encrypt(srcs, readKey(), {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7});
+  let encrypted = CryptoJS.AES.encrypt(srcs, key, {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7});
   return encrypted.ciphertext.toString().toUpperCase();
 }
 
 function configIv(config) {
-  iv = CryptoJS.enc.Utf8.parse(config.iv);
+  iv = CryptoJS.enc.Utf8.parse(config.iv)
 }
 
 function hashString(str) {
-  return CryptoJS.MD5(str).toString();
-}
-
-function readKey() {
-  try {
-    return fs.readFileSync(__dirname + '/.mopass.key').toString();
-  } catch {
-    console.log('not key');
-  }
+  return CryptoJS.MD5(str).toString()
 }
 
 function createKey() {
-  return fs.writeFileSync(__dirname + '/.mopass.key', generator.createKey());
+  return fs.writeFileSync(__dirname + '/.mopass.key', generator.createKey())
 }
 
 function configKey(key) {
-  return fs.writeFileSync(__dirname + '/.mopass.key', key);
+  return fs.writeFileSync(__dirname + '/.mopass.key', key)
 }
 
-module.exports.decrypt = decrypt;
-module.exports.encrypt = encrypt;
-module.exports.configIv = configIv;
-module.exports.createKey = createKey;
-module.exports.configKey = configKey;
-module.exports.hashString = hashString;
+configIv({ iv: 'ABCDEF1234123412' })
+console.log(iv);
+console.log(encrypt('zero'))
+console.log(decrypt(encrypt('zero')))
+
+module.exports.decrypt = decrypt
+module.exports.encrypt = encrypt
+module.exports.configIv = configIv
+module.exports.createKey = createKey
+module.exports.configKey = configKey
+module.exports.hashString = hashString

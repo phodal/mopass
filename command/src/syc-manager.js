@@ -1,25 +1,33 @@
-const inquirer = require('inquirer');
+const inquirer = require('inquirer')
 
-const dbm = require('./dbm');
-const fetch = require('./fetch');
-const encryptUtils = require('./encrypt-utils');
-const tokenManager = require('./token-manager');
+const dbm = require('./dbm')
+const fetch = require('./fetch')
+const encryptUtils = require('./encrypt-utils')
+const tokenManager = require('./token-manager')
 
-function getPasswordByTitle(title) {
-  const result = dbm.get(title);
+function getPasswordByTitle(title, callback) {
+  const result = dbm.get(title)
   if (result) {
-    return encryptUtils.decrypt(result.password);
+    return encryptUtils.decrypt(result.password)
   } else {
-    fetch.fetchPasswordsPromise().then((data) => {
-      dbm.write(data);
-      const results = data.Items.filter(item => {
-        return item.title === title;
-      });
+    fetch.fetchPasswordsPromise().then((response) => {
+      if (!response.data) {
+        console.log('not remote password')
+        callback();
+      }
 
-      if (results) {
-        return encryptUtils.decrypt(results[0].password);
+      dbm.write(response.data)
+      const results = response.data.Items.filter(item => {
+        if (item.title + '' === title + '') {
+          return item
+        }
+      })
+
+      if (results && results.length > 0) {
+        let decrypt = encryptUtils.decrypt(results[0].password)
+        return callback(decrypt);
       } else {
-        return '';
+        return callback('title not work');
       }
     })
   }
@@ -31,28 +39,28 @@ function askMasterPassword(callback) {
       type: 'password',
       name: 'masterPassword',
       mask: true,
-      message: 'master password',
+      message: 'master password'
     }
     ])
     .then(answers => {
-      configMasterPassword(answers.masterPassword, callback);
-    });
+      configMasterPassword(answers.masterPassword, callback)
+    })
 }
 
 function configMasterPassword(masterPassword, callback) {
-  let hashPassword = encryptUtils.hashString(masterPassword);
+  let hashPassword = encryptUtils.hashString(masterPassword)
   encryptUtils.configIv({
     iv: hashPassword
-  });
-  tokenManager.setUserToken(hashPassword);
-  callback();
+  })
+  tokenManager.setUserToken(hashPassword)
+  callback()
 }
 
 function listAllTitle() {
-  return dbm.getAllTitle();
+  return dbm.getAllTitle()
 }
 
-module.exports.getPasswordByTitle = getPasswordByTitle;
-module.exports.askMasterPassword = askMasterPassword;
-module.exports.configMasterPassword = configMasterPassword;
-module.exports.listAllTitle = listAllTitle;
+module.exports.getPasswordByTitle = getPasswordByTitle
+module.exports.askMasterPassword = askMasterPassword
+module.exports.configMasterPassword = configMasterPassword
+module.exports.listAllTitle = listAllTitle

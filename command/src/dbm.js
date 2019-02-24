@@ -3,12 +3,14 @@ const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync(__dirname + '/db.json');
 const db = low(adapter);
 
+db.defaults({ Items: '', Count: 0, ScannedCount: 0}).write();
+
 function write(data) {
   db.set('Items', data.Items)
     .write();
   db.get('Count', data.Count)
     .write();
-  db.get('ScannedCount', data.ScannedCount)
+  db.get('ScannedCount', 0)
     .write();
 }
 
