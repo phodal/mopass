@@ -1,31 +1,39 @@
 {
   "manifest_version": 2,
-
-  "name": "Chrome Extension TypeScript Starter",
-  "description": "Chrome Extension, TypeScript, Visual Studio Code",
+  "name": "Mopass",
+  "description": "Mopass for Chrome",
   "version": "1.0",
-
   "options_ui": {
     "page": "options.html",
     "chrome_style": true
   },
-
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
-
-  "content_scripts": [
-      {
-          "matches": ["<all_urls>"],
-          "js": ["js/vendor.js", "js/content_script.js"]
-      }
+  "web_accessible_resources": [
+    "css/mifa.css"
   ],
-
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "js/vendor.js",
+        "js/content_script.js"
+      ],
+      "css": [
+        "css/mifa.css"
+      ]
+    }
+  ],
   "background": {
-    "scripts": ["js/vendor.js", "js/background.js"]
+    "scripts": [
+      "js/vendor.js",
+      "js/background.js"
+    ]
   },
-
   "permissions": [
     "storage",
     "<all_urls>"

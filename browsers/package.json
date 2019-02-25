@@ -1,7 +1,7 @@
 {
-  "name": "chrome-extension-typescript-starter",
+  "name": "mopss-extension",
   "version": "1.0.0",
-  "description": "chrome-extension-typescript-starter",
+  "description": "Mopass Extension for Chrome",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --config webpack/webpack.dev.js --watch",
