@@ -1,25 +1,29 @@
-import * as moment from 'moment';
-import * as $ from 'jquery';
+import * as $ from 'jquery'
 
-$(function () {
-  const queryInfo = {
-    active: true,
-    currentWindow: true
-  };
+function showAllPasswordsTitle() {
+  let $password = $('#page-password')
 
-  chrome.tabs.query(queryInfo, function (tabs) {
-    $('#url').text(tabs[0].url);
-    $('#time').text(moment().format('YYYY-MM-DD HH:mm:ss'));
-  });
+  $password.html('<div>loading</div>')
+  let domStr = '<div>'
+  chrome.storage.sync.get(['passwords'], function(items) {
+    console.log(items);
+    for (let i = 0; i < items.passwords.length; i++) {
+      const passwordItem = items.passwords[i]
+      domStr += `<p id="password-${i}">${passwordItem.title}</p>`
+    }
 
-  $('#changeBackground').click(() => {
-    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {
-          color: '#555555'
-        },
-        function (msg) {
-          console.log("result message:", msg);
-        });
-    });
-  });
-});
+    domStr += '<div>'
+    $password.html(domStr)
+    $password.show();
+  })
+}
+
+$(function() {
+  console.log('showAllPasswordsTitle');
+  $('#master-password').submit(function(e) {
+    console.log(e);
+    e.preventDefault()
+    $('#page-master').hide();
+    showAllPasswordsTitle()
+  })
+})

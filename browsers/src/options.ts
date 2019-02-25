@@ -1,6 +1,5 @@
 import * as $ from 'jquery';
 
-// Saves options to chrome.storage.sync.
 function save_options() {
   var mopassKey = $('#mopass-key').val();
   chrome.storage.sync.set({
@@ -14,10 +13,7 @@ function save_options() {
   });
 }
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
 function restore_options() {
-  // Use default value color = 'red' and likesColor = true.
   chrome.storage.sync.get({
     mopassKey: '',
   }, function (items: { mopassKey }) {
@@ -26,5 +22,5 @@ function restore_options() {
 }
 
 $('#save').click(save_options);
-$(restore_options); // document.addEventListener('DOMContentLoaded', restore_options);
+$(restore_options);
 

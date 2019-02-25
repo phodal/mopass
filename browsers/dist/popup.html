@@ -5,17 +5,30 @@
   <title>Getting Started Extension's Popup</title>
   <link rel="stylesheet" href="css/mifa.css">
   <script src="js/vendor.js"></script>
+  <style>
+    body {
+      width: 20em;
+    }
+  </style>
 </head>
 <body>
-<form id="master-password">
-  <div>
-    <label for="password">Password</label>
-    <input type="text" id="password">
-  </div>
-  <div>
-    <button class="button" type="submit">OK</button>
-  </div>
-</form>
+<div id="page-master">
+  <form id="master-password">
+    <div>
+      <label for="password">Password</label>
+      <input type="text" id="password">
+    </div>
+    <div>
+      <button class="button" type="submit">OK</button>
+    </div>
+  </form>
+</div>
+
+<div id="page-password" style="display: none">
+  <div id="passwords"></div>
+</div>
+
+<script src="js/popup.js"></script>
 </body>
 </html>
 
