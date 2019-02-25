@@ -1,14 +1,15 @@
 import Mopass from 'mopass-common';
 
-const mopassKey = localStorage.getItem('mopass.key')
-const password = localStorage.getItem('mopass.test')
+const mopassKey = Mopass.EncryptUtil.encParse(localStorage.getItem('mopass.key'));
+const password = localStorage.getItem('mopass.test');
 const hashString = Mopass.EncryptUtil.hashString(password);
 
-Mopass.EncryptUtil.configIv({iv: hashString});
+Mopass.EncryptUtil.configIv({iv: password});
 Mopass.TokenManager.setUserToken(hashString);
 
 Mopass.Fetch.fetchPasswordsPromise().then((response) => {
-  let firstPassword = response.data.Items[0].password
+  console.log(response.data.Items[3])
+  let firstPassword = response.data.Items[3].password
   console.log(firstPassword, mopassKey);
   var result = Mopass.EncryptUtil.decrypt(firstPassword, mopassKey);
   console.log(result);
