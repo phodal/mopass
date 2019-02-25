@@ -1,7 +1,9 @@
 import * as $ from 'jquery';
 
+let $mopass = $('#mopass-key')
+
 function save_options() {
-  var mopassKey = $('#mopass-key').val();
+  let mopassKey = $mopass.val();
   chrome.storage.sync.set({
     mopassKey: mopassKey
   }, function () {
@@ -14,10 +16,8 @@ function save_options() {
 }
 
 function restore_options() {
-  chrome.storage.sync.get({
-    mopassKey: '',
-  }, function (items: { mopassKey }) {
-    $('#mopassKey').val(items.mopassKey);
+  chrome.storage.sync.get(['mopassKey'], function (items: { mopassKey }) {
+    $mopass.val(items.mopassKey);
   });
 }
 

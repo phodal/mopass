@@ -1,25 +1,33 @@
 import * as $ from 'jquery'
+let $password = $('#page-password')
+
+function buildPasswords() {
+  let domStr = '<div>'
+  chrome.storage.sync.get(['passwords'], function(items) {
+    console.log(items)
+    for (let i = 0; i < items.passwords.length; i++) {
+      const passwordItem = items.passwords[i]
+      domStr += `<p id="password-${i}">${passwordItem.title}</p>`
+    }
+
+    domStr += '<div>'
+    $password.html(domStr)
+    $password.show()
+  })
+}
 
 function showAllPasswordsTitle(pwd) {
-  let $password = $('#page-password')
   $password.html('<div>loading</div>')
-
-  chrome.runtime.getBackgroundPage(function(bgWindow: any) {
-    bgWindow.fetchPasswordsInBackground(pwd, function() {
-      let domStr = '<div>'
-      chrome.storage.sync.get(['passwords'], function(items) {
-        console.log(items)
-        for (let i = 0; i < items.passwords.length; i++) {
-          const passwordItem = items.passwords[i]
-          domStr += `<p id="password-${i}">${passwordItem.title}</p>`
-        }
-
-        domStr += '<div>'
-        $password.html(domStr)
-        $password.show()
-      })
-    })
-  })
+  chrome.runtime.sendMessage({
+    type: 'page',
+    info: pwd
+  }, {}, function(data) {
+    if (data.status === 200) {
+      buildPasswords()
+    } else {
+      $password.html(data.body)
+    }
+  });
 }
 
 $(function() {
@@ -27,7 +35,6 @@ $(function() {
   $('#master-password').submit(function(e) {
     e.preventDefault()
     $('#page-master').hide()
-    console.log($('#password').val())
     showAllPasswordsTitle($('#password').val())
   })
 })
