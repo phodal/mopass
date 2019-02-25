@@ -50,12 +50,12 @@ function decryptPassword(encodedPassword) {
 }
 
 function showAllPasswordsTitle(pwd) {
+  $password.show()
   $password.html('<div>loading</div>')
   chrome.runtime.sendMessage({
     type: 'page',
     info: pwd
   }, function(data) {
-    $password.show()
     if (data) {
       if (data.status === 200) {
         buildPasswords()
