@@ -1,7 +1,8 @@
 import Mopass from 'mopass-common'
 
+let mopassKey
+
 function fetchPasswordsInBackground(password, callback) {
-  let mopassKey
   const hashString = Mopass.EncryptUtil.hashString(password)
 
   chrome.storage.sync.get(['mopassKey'], function(items: { mopassKey }) {
@@ -31,20 +32,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     fetchPasswordsInBackground(request.info, function(data) {
       sendResponse(data)
     })
+  } else if (request && request.type === 'decrypt') {
+    const result = Mopass.EncryptUtil.decrypt(request.info, mopassKey)
+    sendResponse({
+      status: 200,
+      body: result
+    })
   }
 
   return true;
 })
-
-function getPasswordByTitle(title: any, callback) {
-  return chrome.storage.sync.get(['passwords'], function(items) {
-    const results = items.passwords.filter(item => {
-      if (item.title + '' === title + '') {
-        return item
-      }
-    })
-
-    callback(results[0])
-  })
-}
-
