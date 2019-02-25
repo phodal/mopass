@@ -37,6 +37,10 @@ function configIv(config: any) {
   iv = CryptoJS.enc.Utf8.parse(config.iv);
 }
 
+function encParse(word: any) {
+  return CryptoJS.enc.Utf8.parse(word);
+}
+
 function hashString(str: string) {
   return CryptoJS.MD5(str).toString();
 }
@@ -45,5 +49,6 @@ export default {
   decrypt,
   encrypt,
   configIv,
+  encParse,
   hashString
 }
