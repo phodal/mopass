@@ -3,7 +3,6 @@ import Mopass from 'mopass-common'
 function fetchPasswordsInBackground(password, callback) {
   let mopassKey
   const hashString = Mopass.EncryptUtil.hashString(password)
-  console.log(callback)
 
   chrome.storage.sync.get(['mopassKey'], function(items: { mopassKey }) {
     if (!items.mopassKey) {
@@ -27,10 +26,14 @@ function savePasswords(passwords: any) {
   })
 }
 
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-  if (message && message.type === 'page') {
-    fetchPasswordsInBackground(message.info, sendResponse)
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request && request.type === 'page') {
+    fetchPasswordsInBackground(request.info, function(data) {
+      sendResponse(data)
+    })
   }
+
+  return true;
 })
 
 function getPasswordByTitle(title: any, callback) {

@@ -12,7 +12,6 @@ function buildPasswords() {
 
     domStr += '<div>'
     $password.html(domStr)
-    $password.show()
   })
 }
 
@@ -21,11 +20,16 @@ function showAllPasswordsTitle(pwd) {
   chrome.runtime.sendMessage({
     type: 'page',
     info: pwd
-  }, {}, function(data) {
-    if (data.status === 200) {
-      buildPasswords()
+  }, function(data) {
+    $password.show()
+    if (data) {
+      if (data.status === 200) {
+        buildPasswords()
+      } else {
+        $password.html(data.body)
+      }
     } else {
-      $password.html(data.body)
+      $password.html('Error, Not Background Services')
     }
   });
 }
