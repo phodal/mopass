@@ -2,13 +2,10 @@ import * as $ from 'jquery';
 
 // Saves options to chrome.storage.sync.
 function save_options() {
-  var color = $('#color').val();
-  var likesColor = $('#like').prop('checked');
+  var mopassKey = $('#mopass-key').val();
   chrome.storage.sync.set({
-    favoriteColor: color,
-    likesColor: likesColor
+    mopassKey: mopassKey
   }, function () {
-    // Update status to let user know options were saved.
     var status = $('#status');
     status.text('Options saved.');
     setTimeout(function () {
@@ -22,11 +19,9 @@ function save_options() {
 function restore_options() {
   // Use default value color = 'red' and likesColor = true.
   chrome.storage.sync.get({
-    favoriteColor: 'red',
-    likesColor: true
-  }, function (items: { favoriteColor, likesColor }) {
-    $('#color').val(items.favoriteColor);
-    $('#like').prop('checked', items.likesColor);
+    mopassKey: '',
+  }, function (items: { mopassKey }) {
+    $('#mopassKey').val(items.mopassKey);
   });
 }
 

@@ -1,23 +1,41 @@
-import Mopass from 'mopass-common';
+import Mopass from 'mopass-common'
 
-const mopassKey = Mopass.EncryptUtil.encParse(localStorage.getItem('mopass.key'));
-const password = localStorage.getItem('mopass.test');
-const hashString = Mopass.EncryptUtil.hashString(password);
+let mopassKey
+const password = localStorage.getItem('mopass.test')
+const hashString = Mopass.EncryptUtil.hashString(password)
 
-Mopass.EncryptUtil.configIv({iv: password});
-Mopass.TokenManager.setUserToken(hashString);
+chrome.storage.sync.get({
+  mopassKey: ''
+}, function(items: { mopassKey }) {
+  mopassKey = Mopass.EncryptUtil.encParse(items.mopassKey)
+})
+
+Mopass.EncryptUtil.configIv({ iv: password })
+Mopass.TokenManager.setUserToken(hashString)
 
 Mopass.Fetch.fetchPasswordsPromise().then((response) => {
-  console.log(response.data.Items[3])
-  let firstPassword = response.data.Items[3].password
-  console.log(firstPassword, mopassKey);
-  var result = Mopass.EncryptUtil.decrypt(firstPassword, mopassKey);
-  console.log(result);
-});
+  savePasswords(response.data.Items)
+  getPasswordByTitle('ji', function(passwordItem) {
+    const password = Mopass.EncryptUtil.decrypt(passwordItem.password, mopassKey)
+    console.log(password)
+  })
+})
 
-function polling() {
-  setTimeout(polling, 1000 * 30);
+function savePasswords(passwords: any) {
+  chrome.storage.sync.set({
+    passwords: passwords
+  })
 }
 
-polling();
+function getPasswordByTitle(title: any, callback) {
+  return chrome.storage.sync.get(['passwords'], function(items) {
+    const results = items.passwords.filter(item => {
+      if (item.title + '' === title + '') {
+        return item
+      }
+    })
+
+    callback(results[0])
+  })
+}
 
