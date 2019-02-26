@@ -9,6 +9,7 @@ Roadmap:
  - [x] Client: Chrome Plugin
  - [ ] Client: WeChat-app
  - [ ] Security: New Devices
+ - [ ] Features: 2-Step Verification
 
 ## CLI 
 
