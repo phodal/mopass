@@ -48,6 +48,29 @@ function create(pwdInfo) {
     });
 }
 
+function update(pwdInfo) {
+  console.log('create to server....');
+  axios.put('https://spm.wdsm.io/sync', {
+    id: pwdInfo.id,
+    title: pwdInfo.title,
+    password: pwdInfo.password,
+    token: TokenManager.getUserToken()
+  })
+    .then(function (response) {
+      dbm.create(response.data);
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+    });
+}
+
 module.exports.fetchPasswords = fetchPasswords;
 module.exports.create = create;
+module.exports.update = update;
 module.exports.fetchPasswordsPromise = fetchPasswordsPromise;

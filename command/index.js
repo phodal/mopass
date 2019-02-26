@@ -35,6 +35,13 @@ if (argv.create) {
   })
 }
 
+if (argv.update) {
+  syncManager.askMasterPassword(function() {
+    creator.update(argv.update)
+    fetch.fetchPasswords()
+  })
+}
+
 if (argv.createKey) {
   encryptUtils.createKey()
 }

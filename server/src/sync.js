@@ -168,24 +168,32 @@ function updateItem(event, context, callback) {
       id: body.id
     },
     ExpressionAttributeNames: {
+      '#id': 'id',
       '#password': 'password',
-      '#updatedAt': 'updatedAt'
+      '#updatedAt': 'updatedAt',
+      '#passwordToken': 'token',
     },
     ExpressionAttributeValues: {
+      ':id': body.id,
       ':password': body.password,
+      ':token': body.token,
       ':updatedAt': timestamp
     },
-    ConditionExpression: '(#id = :id, #token = :token)',
-    UpdateExpression: 'SET #password = :password, #updatedAt =: updatedAt',
+    ConditionExpression: '(#id = :id, #passwordToken = :token)',
+    UpdateExpression: 'SET #password = :password, #updatedAt = :updatedAt',
     ReturnValues: 'ALL_NEW',
   };
 
-  dynamoDb.put(params, function (error, data) {
+  dynamoDb.update(params, function (error, data) {
+    console.log(error, data)
     if (error) {
       return callback(null, {
         statusCode: error.statusCode || 501,
         headers: {'Content-Type': 'text/plain'},
-        body: 'couldn\'t create the form item.',
+        body: {
+          message: 'couldn\'t create the form item.',
+          error: error
+        },
       });
     }
 

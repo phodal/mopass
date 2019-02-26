@@ -44,10 +44,20 @@ function checkTitleDuplicate(title) {
   }
 }
 
+function getItemByTitle(title) {
+  let result = get(title)
+  if (result) {
+    return result;
+  } else {
+    return '';
+  }
+}
+
 const dbm = {
   write: write,
   get: get,
   getAllTitle: getAllTitle,
+  getItemByTitle: getItemByTitle,
   create: create,
   checkTitleDuplicate: checkTitleDuplicate
 };
