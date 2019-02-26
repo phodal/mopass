@@ -165,7 +165,8 @@ function updateItem(event, context, callback) {
   const params = {
     TableName: tableName,
     Key: {
-      id: body.id
+      id: body.id,
+      token: body.token
     },
     ExpressionAttributeNames: {
       '#id': 'id',
@@ -179,7 +180,7 @@ function updateItem(event, context, callback) {
       ':token': body.token,
       ':updatedAt': timestamp
     },
-    ConditionExpression: '(#id = :id, #passwordToken = :token)',
+    ConditionExpression: '(#id = :id AND #passwordToken = :token)',
     UpdateExpression: 'SET #password = :password, #updatedAt = :updatedAt',
     ReturnValues: 'ALL_NEW',
   };
