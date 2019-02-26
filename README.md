@@ -6,7 +6,7 @@ Roadmap:
 
  - [x] Serverless
  - [x] Client: CLI
- - [ ] Client: Chrome Plugin
+ - [x] Client: Chrome Plugin
  - [ ] Client: WeChat-app
  - [ ] Security: New Devices
 
