@@ -47,6 +47,23 @@ Commands:
 3. Config: change domain & DB in `serverless.yml`
 4. Deploy: `sls deploy`
 
+## Chrome Plugins
+
+### Setup
+
+1. Config key in options page
+
+## Documents for Developer
+
+### ToC
+
+├── browsers   // Chrome Extensions
+├── command    // CLI
+├── common     // Common Code
+├── docs       // Documents
+├── server     // Serverless Server
+└── weapp      // Wechat App [todo]
+
 LICENSE
 ---
 
