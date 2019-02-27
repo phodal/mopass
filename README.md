@@ -28,6 +28,7 @@ Commands:
  - Fetch Passwords from Server: ``mopass fetch``
  - Get Password By Title: ``mopass --get [title]``
  - List All Titles: ``mopass --list``
+ - Update password bt Title: ``mopass --update [title]``
 
 ### Features
 
