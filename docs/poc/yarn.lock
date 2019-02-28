@@ -6,3 +6,15 @@ crypto-js@^3.1.9-1:
   version "3.1.9-1"
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.1.9-1.tgz#fda19e761fc077e01ffbfdc6e9fdfc59e8806cd8"
   integrity sha1-/aGedh/Ad+Af+/3G6f38WeiAbNg=
+
+otplib@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/otplib/-/otplib-10.0.1.tgz#d37fcd13203298c0b94937d55c5a3527ed877875"
+  integrity sha512-FtbKelYtio2af5LDBWz3bWS6T03taHJAIv3evMrXuvoM50z5jbWoEMabPCk0A0JqiLGBzAIDJWfR9gSsvRYZHA==
+  dependencies:
+    thirty-two "1.0.2"
+
+thirty-two@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/thirty-two/-/thirty-two-1.0.2.tgz#4ca2fffc02a51290d2744b9e3f557693ca6b627a"
+  integrity sha1-TKL//AKlEpDSdEueP1V2k8prYno=
