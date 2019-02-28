@@ -124,6 +124,10 @@ function postItem(event, context, callback) {
     }
   };
 
+  if (body.type) {
+    params.Item.type = body.type
+  }
+
   dynamoDb.put(params, function (error, data) {
     if (error) {
       return callback(null, {
