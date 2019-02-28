@@ -13,7 +13,11 @@ Roadmap:
 
 ## Screenshots
 
+Chrome Screenshots
+
 ![Mopass Chrome Screenshots](./docs/images/mopass-chrome-ss.png)
+
+Command Line Screenshots
 
 ![Mopass Command Line Screenshots](./docs/images/mopass-cli-ss.png)
 
