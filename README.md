@@ -7,9 +7,9 @@ Roadmap:
  - [x] Serverless
  - [x] Client: CLI
  - [x] Client: Chrome Plugin
+ - [x] Features: 2-Step Verification
  - [ ] Client: WeChat-app
  - [ ] Security: New Devices
- - [ ] Features: 2-Step Verification
 
 ## CLI 
 
@@ -29,6 +29,7 @@ Commands:
  - Get Password By Title: ``mopass --get [title]``
  - List All Titles: ``mopass --list``
  - Update password bt Title: ``mopass --update [title]``
+ - Create MFA: ``mopass --create mfa`` or ``mopass --mfa``
 
 ### Features
 

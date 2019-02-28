@@ -13,6 +13,8 @@ Commands:
  - Fetch Passwords from Server: ``mopass fetch``
  - Get Password By Title: ``mopass --get [title]``
  - List All Titles: ``mopass --list``
+ - Create MFA: ``mopass --create mfa`` or ``mopass --mfa``
+ - Update password bt Title: ``mopass --update [title]``
 
 ## Features
 
