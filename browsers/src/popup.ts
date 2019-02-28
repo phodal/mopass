@@ -1,4 +1,5 @@
 import * as $ from 'jquery'
+import Mopass from 'mopass-common'
 
 let $password = $('#page-password')
 
@@ -19,7 +20,7 @@ function buildPasswords() {
   chrome.storage.sync.get(['passwords'], function(items) {
     for (let i = 0; i < items.passwords.length; i++) {
       const passwordItem = items.passwords[i]
-      domStr += `<a class="button pwd-btn" id="password-${i}" data-pwd="${passwordItem.password}">${passwordItem.title}</a>`
+      domStr += `<a class="button pwd-btn" id="password-${i}" data-pwd-type="${passwordItem.type}" data-pwd="${passwordItem.password}">${passwordItem.title}</a>`
     }
 
     domStr += '<div>'
@@ -28,20 +29,26 @@ function buildPasswords() {
     let $pwdBtn = $('.pwd-btn')
     $pwdBtn.on('click', function(event) {
       $('#error').html('')
-      decryptPassword($(event.target).attr('data-pwd'))
+      let passwordType = $(event.target).attr('data-pwd-type')
+      let encodedPassword = $(event.target).attr('data-pwd')
+      decryptPassword(encodedPassword, passwordType)
     })
   })
 }
 
-function decryptPassword(encodedPassword) {
-  copyToClipboard(encodedPassword)
+function decryptPassword(encodedPassword: any, passwordType: any) {
   chrome.runtime.sendMessage({
-    type: 'decrypt',
+    msgType: 'decrypt',
     info: encodedPassword
   }, function(data) {
     $password.show()
     if (data && data.status === 200) {
-      copyToClipboard(data.body)
+      if (passwordType === 'mfa') {
+        copyToClipboard(data.body)
+      } else {
+        copyToClipboard(Mopass.MFAUtil.getMFAPassword(data.body))
+      }
+
       $('#error').html('copy success')
     } else {
       $('#error').html('decrypt failure')
@@ -53,7 +60,7 @@ function showAllPasswordsTitle(pwd) {
   $password.show()
   $password.html('<div>loading</div>')
   chrome.runtime.sendMessage({
-    type: 'page',
+    msgType: 'page',
     info: pwd
   }, function(data) {
     if (data) {

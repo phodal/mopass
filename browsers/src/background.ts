@@ -28,11 +28,11 @@ function savePasswords(passwords: any) {
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request && request.type === 'page') {
+  if (request && request.msgType === 'page') {
     fetchPasswordsInBackground(request.info, function(data) {
       sendResponse(data)
     })
-  } else if (request && request.type === 'decrypt') {
+  } else if (request && request.msgType === 'decrypt') {
     const result = Mopass.EncryptUtil.decrypt(request.info, mopassKey)
     sendResponse({
       status: 200,
