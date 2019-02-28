@@ -9,3 +9,4 @@
 * [7. 两步验证支持](0007-两步验证支持.md)
 * [8. macos-免密码](0008-macos-免密码.md)
 * [9. cli-支持导入-andotp-导出的-json-文件](0009-cli-支持导入-andotp-导出的-json-文件.md)
+* [10. master-password-重复问题](0010-master-password-重复问题.md)
