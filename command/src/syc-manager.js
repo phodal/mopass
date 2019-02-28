@@ -4,11 +4,21 @@ const dbm = require('./dbm')
 const fetch = require('./fetch')
 const encryptUtils = require('./encrypt-utils')
 const tokenManager = require('./token-manager')
+const mfaUtils = require('./mfa-utils')
+
+function getPassword(result, callback) {
+  let decrypt = encryptUtils.decrypt(result.password)
+  if (result.type === 'mfa') {
+    callback(mfaUtils.getMFAPassword(decrypt))
+  } else {
+    callback(decrypt)
+  }
+}
 
 function getPasswordByTitle(title, callback) {
   const result = dbm.get(title)
   if (result) {
-    callback(encryptUtils.decrypt(result.password));
+    return getPassword(result, callback)
   } else {
     fetch.fetchPasswordsPromise().then((response) => {
       if (!response.data) {
@@ -24,8 +34,8 @@ function getPasswordByTitle(title, callback) {
       })
 
       if (results && results.length > 0) {
-        let decrypt = encryptUtils.decrypt(results[0].password)
-        return callback(decrypt);
+        let result = results[0]
+        return getPassword(result, callback)
       } else {
         return callback('title not work');
       }

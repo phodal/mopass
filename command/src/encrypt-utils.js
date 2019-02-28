@@ -21,7 +21,6 @@ function isExistKeyAndIv(key, iv) {
 
 function decrypt(word) {
   let key = getKey()
-  console.log(word, key, iv);
   if (!isExistKeyAndIv(key, iv)) {
     return
   }
