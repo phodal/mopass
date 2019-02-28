@@ -28,11 +28,10 @@ function fetchPasswordsPromise() {
 
 function create(pwdInfo) {
   console.log('create to server....');
-  axios.post('https://spm.wdsm.io/sync', {
-    title: pwdInfo.title,
-    password: pwdInfo.password,
-    token: TokenManager.getUserToken()
-  })
+  let options = pwdInfo;
+  options.token = TokenManager.getUserToken();
+
+  axios.post('https://spm.wdsm.io/sync', options)
     .then(function (response) {
       dbm.create(response.data);
     })

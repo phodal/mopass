@@ -14,6 +14,7 @@ function validatePassword(data) {
 
 function creator() {
   const pwdInfo = {
+    type: 'simple',
     title: '',
     password: ''
   }
@@ -37,6 +38,43 @@ function creator() {
         pwdInfo.title = ans.answer
       }
       if (ans.name === 'password') {
+        pwdInfo.password = encryptUtils.encrypt(ans.answer)
+      }
+    },
+    function(err) {
+      console.log('Error: ', err)
+    },
+    function() {
+      fetch.create(pwdInfo)
+    })
+}
+
+function createMFA() {
+  const pwdInfo = {
+    type: 'mfa',
+    title: '',
+    password: ''
+  }
+  const questions = [{
+    type: 'input',
+    name: 'title',
+    message: 'password title',
+    validate: dbm.checkTitleDuplicate
+  }, {
+    type: 'password',
+    name: 'mfa',
+    mask: true,
+    message: 'your mfa password',
+    validate: validatePassword
+  }]
+
+  const observable = from(questions)
+  inquirer.prompt(observable).ui.process.subscribe(
+    function(ans) {
+      if (ans.name === 'title') {
+        pwdInfo.title = ans.answer
+      }
+      if (ans.name === 'mfa') {
         pwdInfo.password = encryptUtils.encrypt(ans.answer)
       }
     },
@@ -83,5 +121,6 @@ function update(title) {
 }
 
 module.exports.creator = creator
+module.exports.createMFA = createMFA
 module.exports.update = update
 

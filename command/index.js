@@ -35,6 +35,13 @@ if (argv.create) {
   })
 }
 
+if (argv.mfa) {
+  syncManager.askMasterPassword(function() {
+    creator.createMFA()
+    fetch.fetchPasswords()
+  })
+}
+
 if (argv.update) {
   syncManager.askMasterPassword(function() {
     creator.update(argv.update)
