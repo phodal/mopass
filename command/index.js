@@ -28,7 +28,18 @@ if (argv.fetch) {
   })
 }
 
+
+function createMFAPassword() {
+  syncManager.askMasterPassword(function() {
+    creator.createMFA()
+    fetch.fetchPasswords()
+  })
+}
+
 if (argv.create) {
+  if (argv.create === 'mfa') {
+    return createMFAPassword()
+  }
   syncManager.askMasterPassword(function() {
     creator.creator()
     fetch.fetchPasswords()
@@ -36,10 +47,7 @@ if (argv.create) {
 }
 
 if (argv.mfa) {
-  syncManager.askMasterPassword(function() {
-    creator.createMFA()
-    fetch.fetchPasswords()
-  })
+  createMFAPassword()
 }
 
 if (argv.update) {

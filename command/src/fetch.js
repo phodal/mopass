@@ -31,10 +31,8 @@ function create(pwdInfo) {
   let options = pwdInfo
   options.token = TokenManager.getUserToken()
 
-  console.log(options)
   axios.post('https://spm.wdsm.io/sync', options)
     .then(function(response) {
-      console.log(response.data)
       dbm.create(response.data)
     })
     .catch(function(error) {
