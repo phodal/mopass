@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "jquery": "~3.3.1",
-    "mopass-common": "file:../common"
+    "mopass-common": "file:../common",
+    "otplib": "^10.0.1"
   },
   "devDependencies": {
     "@types/chrome": "~0.0.72",
