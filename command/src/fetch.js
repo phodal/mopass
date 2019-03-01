@@ -69,7 +69,25 @@ function update(pwdInfo) {
     })
 }
 
+function batchWrite(pwdInfo) {
+  console.log('create to server....')
+  axios.post('https://spm.wdsm.io/batch', pwdInfo)
+    .then(function(response) {
+
+    })
+    .catch(function(error) {
+      if (error.response) {
+        console.log(error.response.data)
+      } else if (error.request) {
+        console.log(error.request)
+      } else {
+        console.log('Error', error.message)
+      }
+    })
+}
+
 module.exports.fetchPasswords = fetchPasswords
 module.exports.create = create
 module.exports.update = update
+module.exports.batchWrite = batchWrite
 module.exports.fetchPasswordsPromise = fetchPasswordsPromise

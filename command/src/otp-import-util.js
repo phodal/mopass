@@ -5,7 +5,7 @@ function readConfigByFile(path) {
     var otps = fs.readFileSync(__dirname + '/' + path).toString()
     if (!otps) {
       console.log('not data')
-      return
+      return false
     }
 
     try {
@@ -25,12 +25,12 @@ function readConfigByFile(path) {
       return pwdInfos
     } catch (e) {
       console.log('parse otp error:' + e)
+      return false;
     }
   } catch (e) {
     console.log('readConfigError' + e)
+    return false;
   }
 }
 
-let data = readConfigByFile('andotp.json')
-
-
+module.exports.readConfigByFile = readConfigByFile

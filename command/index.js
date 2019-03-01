@@ -28,6 +28,14 @@ if (argv.fetch) {
   })
 }
 
+if (argv.import || argv.type) {
+  if (argv.import && argv.type === 'mfa') {
+    syncManager.askMasterPassword(function() {
+      creator.importMFAs(argv.import)
+      fetch.fetchPasswords()
+    })
+  }
+}
 
 function createMFAPassword() {
   syncManager.askMasterPassword(function() {

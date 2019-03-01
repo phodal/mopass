@@ -17,6 +17,7 @@ function buildBatchItems(items) {
           'password': item.password,
           'token': item.token,
           'title': item.title,
+          'type': item.type,
           'id': shortid.generate(),
           'createdAt': timestamp,
           'updatedAt': timestamp
@@ -37,7 +38,7 @@ function postItem(event, context, callback) {
     callback(null, { statusCode: 400, body: JSON.stringify(error) })
   }
 
-  if (!body.length || (!body.length && !body[0].password)) {
+  if (!(body.length && body[0].password && body[0].token)) {
     callback(null, {
       statusCode: 400, body: JSON.stringify({
         message: 'message lost',
@@ -53,10 +54,12 @@ function postItem(event, context, callback) {
 
   dynamoDb.batchWrite(params, function(error, data) {
     if (error) {
+      console.log(JSON.stringify(params))
+      console.log(error)
       return callback(null, {
         statusCode: error.statusCode || 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: error
+        body: JSON.stringify(error)
       })
     }
 

@@ -5,7 +5,9 @@ const { from } = require('rxjs')
 
 const dbm = require('./dbm')
 const encryptUtils = require('./encrypt-utils')
+const otpImportUtil = require('./otp-import-util')
 const fetch = require('./fetch')
+const TokenManager = require('./token-manager')
 
 function validatePassword(data) {
   // return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(data);
@@ -120,7 +122,22 @@ function update(title) {
     })
 }
 
+function importMFAs(path) {
+  let configs = otpImportUtil.readConfigByFile(path)
+  if (!configs) {
+    console.log('not config')
+    return
+  }
+  configs = configs.map(config => {
+    config.token = TokenManager.getUserToken()
+    config.password = encryptUtils.encrypt(config.password)
+    return config
+  })
+  fetch.batchWrite(configs)
+}
+
 module.exports.creator = creator
 module.exports.createMFA = createMFA
+module.exports.importMFAs = importMFAs
 module.exports.update = update
 
