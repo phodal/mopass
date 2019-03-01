@@ -49,7 +49,6 @@ function postItem(event, context, callback) {
   const params = {
     'RequestItems': {}
   }
-  console.log(body)
   params.RequestItems[tableName] = buildBatchItems(body)
 
   dynamoDb.batchWrite(params, function(error, data) {
