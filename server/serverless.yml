@@ -28,6 +28,7 @@ provider:
         - dynamodb:Query
         - dynamodb:Scan
         - dynamodb:DeleteItem
+        - dynamodb:BatchWriteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
       Effect: Allow
     - Effect: Allow
@@ -63,6 +64,19 @@ functions:
     events:
       - http:
           path: /sync
+          method: ANY
+          cors: true
+          authorizer:
+            name: auth
+            resultTtlInSeconds: 300
+            identitySource: method.request.header.Authorization
+            type: token
+
+  batch:
+    handler: src/batch.handler
+    events:
+      - http:
+          path: /batch
           method: ANY
           cors: true
           authorizer:

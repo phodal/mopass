@@ -23,6 +23,8 @@ function readConfigByFile(path) {
         }
       }
       console.log(pwdInfos)
+
+      return pwdInfos
     } catch (e) {
       console.log('parse otp error:' + e)
     }
@@ -31,4 +33,46 @@ function readConfigByFile(path) {
   }
 }
 
-readConfigByFile('andotp.json')
+function buildBatchItems(items) {
+  let results = []
+  const timestamp = new Date().getTime()
+  console.log('.....')
+  console.log(items)
+
+  for (let i = 0; i < items.length; i++) {
+    let item = items[i]
+    results.push({
+      'PutRequest': {
+        'Item': {
+          'password': {
+            'S': item.password
+          },
+          'token': {
+            'S': item.token
+          },
+          'title': {
+            'S': item.title
+          },
+          'id': {
+            'S': '3244'
+          },
+          'createdAt': {
+            'S': timestamp
+          },
+          'updatedAt': {
+            'S': timestamp
+          }
+
+        }
+      }
+    })
+  }
+
+  return results
+}
+
+let data = readConfigByFile('andotp.json')
+var result = buildBatchItems(data)
+console.log(result)
+
+
