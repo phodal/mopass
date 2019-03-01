@@ -37,7 +37,7 @@ function postItem(event, context, callback) {
     callback(null, { statusCode: 400, body: JSON.stringify(error) })
   }
 
-  if (!body.length && (!body.length && !body[0]).password) {
+  if (!body.length || (!body.length && !body[0].password)) {
     callback(null, {
       statusCode: 400, body: JSON.stringify({
         message: 'message lost',
@@ -49,11 +49,8 @@ function postItem(event, context, callback) {
   const params = {
     'RequestItems': {}
   }
-  params.RequestItems[tableName] = buildBatchItems([{
-    password: 'test',
-    token: 'token',
-    title: 'test'
-  }])
+  console.log(body)
+  params.RequestItems[tableName] = buildBatchItems(body)
 
   dynamoDb.batchWrite(params, function(error, data) {
     if (error) {
