@@ -10,3 +10,4 @@
 * [8. macos-免密码](0008-macos-免密码.md)
 * [9. cli-支持导入-andotp-导出的-json-文件](0009-cli-支持导入-andotp-导出的-json-文件.md)
 * [10. master-password-重复问题](0010-master-password-重复问题.md)
+* [11. 提供在密码行中可直接输入密码的方式](0011-提供在密码行中可直接输入密码的方式.md)
