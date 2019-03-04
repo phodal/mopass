@@ -1,6 +1,6 @@
 {
   "name": "mopass",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Password Generator for Phodal",
   "main": "index.js",
   "bin": "index.js",
