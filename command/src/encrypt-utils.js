@@ -9,8 +9,12 @@ function getUserHome() {
   return process.env.HOME || process.env.USERPROFILE
 }
 
+function getKeyPath() {
+  return getUserHome() + '/.mopass.key'
+}
+
 function getKey() {
-  let keyFile = fs.readFileSync(getUserHome() + '/.mopass.key').toString().split('\n')[0]
+  let keyFile = fs.readFileSync(getKeyPath()).toString().split('\n')[0]
   return CryptoJS.enc.Utf8.parse(keyFile)
 }
 
@@ -56,11 +60,11 @@ function hashString(str) {
 }
 
 function createKey() {
-  return fs.writeFileSync(getUserHome() + '/.mopass.key', generator.createKey())
+  return fs.writeFileSync(getKeyPath(), generator.createKey())
 }
 
 function configKey(key) {
-  return fs.writeFileSync(getUserHome() + '/.mopass.key', key)
+  return fs.writeFileSync(getKeyPath(), key)
 }
 
 module.exports.decrypt = decrypt
