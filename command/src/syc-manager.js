@@ -23,7 +23,7 @@ function getPasswordByTitle(title, callback) {
     fetch.fetchPasswordsPromise().then((response) => {
       if (!response.data) {
         console.log('not remote password')
-        callback();
+        callback()
       }
 
       dbm.write(response.data)
@@ -37,7 +37,7 @@ function getPasswordByTitle(title, callback) {
         let result = results[0]
         return getPassword(result, callback)
       } else {
-        return callback('title not work');
+        return callback('title not work')
       }
     })
   }
@@ -70,7 +70,25 @@ function listAllTitle() {
   return dbm.getAllTitle()
 }
 
+function deleteByTitle(title) {
+  const result = dbm.getItemByTitle(title)
+  if (result) {
+    fetch.deletePasswordPromise({
+      id: result.id
+    }).then((response) => {
+      console.log('200! delete success')
+      console.log(response.data)
+    }, (error) => {
+      console.log('500! ERROR')
+      console.log(error.response.data)
+    })
+  } else {
+    console.log('Error, not exist password in local')
+  }
+}
+
 module.exports.getPasswordByTitle = getPasswordByTitle
 module.exports.askMasterPassword = askMasterPassword
 module.exports.configMasterPassword = configMasterPassword
 module.exports.listAllTitle = listAllTitle
+module.exports.deleteByTitle = deleteByTitle

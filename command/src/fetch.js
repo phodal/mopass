@@ -26,6 +26,16 @@ function fetchPasswordsPromise() {
   return axios.get('https://spm.wdsm.io/sync?token=' + TokenManager.getUserToken())
 }
 
+function deletePasswordPromise(pwdInfo) {
+  console.log(pwdInfo)
+  return axios.delete('https://spm.wdsm.io/sync', {
+    data: {
+      id: pwdInfo.id,
+      token: TokenManager.getUserToken()
+    }
+  })
+}
+
 function create(pwdInfo) {
   console.log('create to server....')
   let options = pwdInfo
@@ -91,3 +101,4 @@ module.exports.create = create
 module.exports.update = update
 module.exports.batchWrite = batchWrite
 module.exports.fetchPasswordsPromise = fetchPasswordsPromise
+module.exports.deletePasswordPromise = deletePasswordPromise

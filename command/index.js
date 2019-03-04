@@ -65,6 +65,13 @@ if (argv.update) {
   })
 }
 
+if (argv.delete) {
+  syncManager.askMasterPassword(function() {
+    syncManager.deleteByTitle(argv.delete)
+    fetch.fetchPasswords()
+  })
+}
+
 if (argv.createKey) {
   encryptUtils.createKey()
 }
