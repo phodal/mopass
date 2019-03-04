@@ -99,6 +99,11 @@ function update(title) {
     mask: true,
     message: 'your new password',
     validate: validatePassword
+  }, {
+    type: 'text',
+    name: 'title',
+    mask: true,
+    message: 'your new title (N/[new Title])'
   }]
 
   const observable = from(questions)
@@ -106,6 +111,11 @@ function update(title) {
     ans => {
       if (ans.name === 'password') {
         pwdInfo.password = encryptUtils.encrypt(ans.answer)
+      }
+      if (ans.name === 'title' && ans.answer.toLowerCase() === 'n') {
+        pwdInfo.title = false
+      } else {
+        pwdInfo.title = ans.answer
       }
     },
     err => {
@@ -115,6 +125,7 @@ function update(title) {
       let item = dbm.getItemByTitle(title)
       if (item) {
         pwdInfo.id = item.id
+        pwdInfo.title = pwdInfo.title === false ? item.title : pwdInfo.title
         fetch.update(pwdInfo)
       } else {
         console.log('Error: title' + title + ' not exist')
