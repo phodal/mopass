@@ -40,6 +40,8 @@ Commands:
  - List All Titles: ``mopass --list``
  - Update password bt Title: ``mopass --update [title]``
  - Create MFA: ``mopass --create mfa`` or ``mopass --mfa``
+ - Update password by Title: ``mopass --update [title]``
+ - Delete password by Title: ``mopass --delete [title]``
 
 ### Features
 

@@ -14,7 +14,8 @@ Commands:
  - Get Password By Title: ``mopass --get [title]``
  - List All Titles: ``mopass --list``
  - Create MFA: ``mopass --create mfa`` or ``mopass --mfa``
- - Update password bt Title: ``mopass --update [title]``
+ - Update password by Title: ``mopass --update [title]``
+ - Delete password by Title: ``mopass --delete [title]``
 
 ## Features
 
