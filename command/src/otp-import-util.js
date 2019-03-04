@@ -2,7 +2,7 @@ const fs = require('fs')
 
 function readConfigByFile(path) {
   try {
-    var otps = fs.readFileSync(__dirname + '/' + path).toString()
+    var otps = fs.readFileSync(process.cwd() + '/' + path).toString()
     if (!otps) {
       console.log('not data')
       return false

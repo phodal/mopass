@@ -42,6 +42,7 @@ Commands:
  - Create MFA: ``mopass --create mfa`` or ``mopass --mfa``
  - Update password by Title: ``mopass --update [title]``
  - Delete password by Title: ``mopass --delete [title]``
+ - Import MFAs from AndOTP: ``mopass --import [fileName] --type mfa``
 
 ### Features
 
