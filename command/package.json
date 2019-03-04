@@ -13,9 +13,9 @@
     "url": "git+https://github.com/phodal/mopass.git"
   },
   "keywords": [
-    "JavaScript",
-    "Password",
-    "Generator"
+    "Serverless",
+    "Command Line Interface",
+    "Password Manager"
   ],
   "author": "Phodal HUANG",
   "license": "MIT",

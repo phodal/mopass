@@ -2,7 +2,7 @@
   "name": "mopass-common",
   "version": "0.0.1",
   "description": "",
-  "keywords": [],
+  "keywords": ["password", "serverless", "common"],
   "main": "dist/mopass-common.umd.js",
   "module": "dist/mopass-common.es5.js",
   "typings": "dist/types/mopass-common.d.ts",
