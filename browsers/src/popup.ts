@@ -44,9 +44,9 @@ function decryptPassword(encodedPassword: any, passwordType: any) {
     $password.show()
     if (data && data.status === 200) {
       if (passwordType === 'mfa') {
-        copyToClipboard(data.body)
-      } else {
         copyToClipboard(Mopass.MFAUtil.getMFAPassword(data.body))
+      } else {
+        copyToClipboard(data.body)
       }
 
       $('#error').html('copy success')
