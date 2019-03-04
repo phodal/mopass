@@ -35,3 +35,9 @@ if (argv.generate) {
       console.log(password);
     });
 }
+
+function getUserHome() {
+  return process.env.HOME || process.env.USERPROFILE;
+}
+
+console.log(getUserHome())

@@ -5,8 +5,12 @@ const generator = require('./generator')
 
 let iv
 
+function getUserHome() {
+  return process.env.HOME || process.env.USERPROFILE
+}
+
 function getKey() {
-  let keyFile = fs.readFileSync(__dirname + '/.mopass.key').toString().split('\n')[0]
+  let keyFile = fs.readFileSync(getUserHome() + '/.mopass.key').toString().split('\n')[0]
   return CryptoJS.enc.Utf8.parse(keyFile)
 }
 
@@ -38,9 +42,9 @@ function encrypt(word) {
     return
   }
 
-  let srcs = CryptoJS.enc.Utf8.parse(word);
-  let encrypted = CryptoJS.AES.encrypt(srcs, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
-  return encrypted.ciphertext.toString().toUpperCase();
+  let srcs = CryptoJS.enc.Utf8.parse(word)
+  let encrypted = CryptoJS.AES.encrypt(srcs, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 })
+  return encrypted.ciphertext.toString().toUpperCase()
 }
 
 function configIv(config) {
@@ -52,11 +56,11 @@ function hashString(str) {
 }
 
 function createKey() {
-  return fs.writeFileSync(__dirname + '/.mopass.key', generator.createKey())
+  return fs.writeFileSync(getUserHome() + '/.mopass.key', generator.createKey())
 }
 
 function configKey(key) {
-  return fs.writeFileSync(__dirname + '/.mopass.key', key)
+  return fs.writeFileSync(getUserHome() + '/.mopass.key', key)
 }
 
 module.exports.decrypt = decrypt
